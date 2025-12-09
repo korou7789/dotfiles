@@ -1,0 +1,231 @@
+[[plugins]]
+repo = 'max397574/better-escape.nvim'
+on_event = ['InsertEnter']
+lua_source = '''
+require("better_escape").setup()
+'''
+
+[[plugins]]
+repo = 'windwp/nvim-autopairs'
+on_event = ['InsertEnter']
+lua_source = '''
+require("nvim-autopairs").setup()
+'''
+
+[[plugins]]
+repo = 'dstein64/vim-startuptime'
+on_cmd = 'StartupTime'
+
+[[plugins]]
+repo = 'b0o/incline.nvim'
+on_event = ['CursorHold', 'InsertLeave']
+lua_source = '''
+require("incline").setup()
+'''
+
+[[plugins]]
+repo = 'mvllow/modes.nvim'
+on_event = ['CursorHold', 'InsertLeave']
+lua_source = '''
+require('modes').setup({
+	colors = {
+		insert = "#ffffff",
+		visual = "#a074c4",
+	},
+
+	line_opacity = 0.1,
+
+	set_cursor = true,
+
+	set_cursorline = true,
+
+	set_number = true,
+
+	set_signcolumn = true,
+})
+'''
+
+[[plugins]]
+repo = 'kevinhwang91/nvim-hlslens'
+on_event = ['BufRead', 'BufNewFile']
+lua_source = '''
+require('hlslens').setup()
+
+local kopts = {noremap = true, silent = true}
+
+vim.keymap.set('n', 'n',
+    [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]],
+    kopts)
+vim.keymap.set('n', 'N',
+    [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]],
+    kopts)
+vim.keymap.set('n', '*', [[*<Cmd>lua require('hlslens').start()<CR>]], kopts)
+vim.keymap.set('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], kopts)
+vim.keymap.set('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]], kopts)
+vim.keymap.set('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], kopts)
+
+vim.keymap.set('n', '<ESC><ESC>', '<Cmd>noh<CR>', kopts)
+'''
+
+[[plugins]]
+repo = 'kylechui/nvim-surround'
+on_event = ['BufReadPre', 'BufNewFile']
+lua_source = '''
+require("nvim-surround").setup()
+'''
+
+[[plugins]]
+repo = 'monaqa/dial.nvim'
+on_event = 'BufRead'
+lua_source = '''
+vim.keymap.set("n", "<C-a>", function()
+    require("dial.map").manipulate("increment", "normal")
+end)
+vim.keymap.set("n", "<C-x>", function()
+    require("dial.map").manipulate("decrement", "normal")
+end)
+vim.keymap.set("n", "g<C-a>", function()
+    require("dial.map").manipulate("increment", "gnormal")
+end)
+vim.keymap.set("n", "g<C-x>", function()
+    require("dial.map").manipulate("decrement", "gnormal")
+end)
+vim.keymap.set("x", "<C-a>", function()
+    require("dial.map").manipulate("increment", "visual")
+end)
+vim.keymap.set("x", "<C-x>", function()
+    require("dial.map").manipulate("decrement", "visual")
+end)
+vim.keymap.set("x", "g<C-a>", function()
+    require("dial.map").manipulate("increment", "gvisual")
+end)
+vim.keymap.set("x", "g<C-x>", function()
+    require("dial.map").manipulate("decrement", "gvisual")
+end)
+
+local augend = require("dial.augend")
+
+require("dial.config").augends:register_group {
+    default = {
+        augend.constant.new {
+            elements = { "true", "false" },
+        }
+    }
+}
+'''
+
+[[plugins]]
+repo = 'rhysd/clever-f.vim'
+# on_event = ['BufReadPre', 'BufNewFile']
+on_map = ['f', 'F', 't', 'T']
+lua_add = '''
+vim.g.clever_f_smart_case = 1
+vim.g.clever_f_mark_direct = 1
+vim.g.clever_f_across_no_line = 1
+'''
+
+[[plugins]]
+repo = 'nacro90/numb.nvim'
+lua_source = '''
+require("numb").setup()
+'''
+
+[[plugins]]
+repo = 'ysmb-wtsg/in-and-out.nvim'
+on_map = { i = ['<C-CR>'] }
+lua_source = '''
+vim.keymap.set("i", "<C-CR>", function() require("in-and-out").in_and_out() end)
+'''
+
+[[plugins]]
+repo = 'lewis6991/gitsigns.nvim'
+on_event = ['BufReadPre', 'BufNewFile']
+lua_source = '''
+require("gitsigns").setup()
+'''
+
+[[plugins]]
+repo = 'lambdalisue/vim-gin'
+depends = 'denops.vim'
+on_cmd = 'Gin'
+
+[[plugins]]
+repo = 'lambdalisue/vim-initial'
+on_cmd = 'Initial'
+lua_add = '''
+vim.keymap.set({"n", "x", "o"}, ";;", "<Cmd>Initial<CR>", { silent = true })
+'''
+
+
+[[plugins]]
+repo = 'folke/flash.nvim'
+on_event = 'VimEnter'
+lua_source = '''
+vim.keymap.set({"n", "x", "o"}, ";s", function() require("flash").jump() end, { noremap = true, silent = true })
+'''
+
+[[plugins]]
+repo = 'tyamaz/jumpcursor.vim'
+on_map = '<Plug>(jumpcursor-jump)'
+lua_add = '''
+vim.keymap.set("n", "<space><space>", "<Plug>(jumpcursor-jump)", {noremap = true, silent = true})
+'''
+
+[[plugins]]
+repo = 'hrsh7th/vim-seak'
+on_event = 'CmdlineEnter'
+lua_add = '''
+vim.g.seak_enabled = true
+vim.keymap.set("c", "<leader>s", function() vim.fn["seak#select"]({nohlsearch = true }) end)
+'''
+
+[[plugins]]
+repo = 'haya14busa/vim-edgemotion'
+on_event = 'InsertEnter'
+# on_map = '<Plug>(edgemotion'
+hook_add = '''
+map <C-j> <Nop>
+map <C-k> <Nop>
+map <C-j> <Plug>(edgemotion-j)
+map <C-k> <Plug>(edgemotion-k)
+'''
+
+[[plugins]]
+repo = 'lambdalisue/vim-mr'
+on_source = 'ddu-source-mr'
+
+[[plugins]]
+repo = 'lukas-reineke/indent-blankline.nvim'
+on_event = 'VimEnter'
+lua_source = '''
+require("ibl").setup()
+'''
+
+[[plugins]]
+repo = 'folke/noice.nvim'
+on_event = 'VimEnter'
+depends = 'nui.nvim'
+lua_source = '''
+require("noice").setup({
+    cmdline = {
+        enabled = true,
+        view = "cmdline_popup",
+    },
+    notify = {
+        enabled = true,
+        view = "mini",
+    },
+    messages = {
+        enabled = true,
+        view = "mini",
+    }
+})
+'''
+
+[[plugins]]
+repo = 'MunifTanjim/nui.nvim'
+on_event = 'VimEnter'
+
+[[plugins]]
+repo = 'rcarriga/nvim-notify'
+on_event = 'VimEnter'

@@ -1,0 +1,9 @@
+[[plugins]]
+repo = 'catppuccin/nvim'
+
+[[plugins]]
+repo = 'rebelot/kanagawa.nvim'
+
+[[plugins]]
+repo = 'cocopon/iceberg.vim'
+

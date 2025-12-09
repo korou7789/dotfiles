@@ -1,0 +1,40 @@
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter'
+rev = 'main'
+hook_post_update = 'TSUpdate'
+lua_source = '''
+require("nvim-treesitter").setup()
+vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+local langs = {
+	'toml',
+	'typescript',
+	'lua',
+	'vim',
+	'vimdoc',
+}
+require("nvim-treesitter").install(langs)
+
+vim.treesitter.start = (function(wrapped)
+	return function(bufnr, lang)
+		lang = lang or vim.fn.getbufvar(bufnr or '', '&filetype')
+		pcall(wrapped, bufnr, lang)
+	end
+
+end)(vim.treesitter.start)
+'''
+
+[[plugins]]
+repo = 'folke/ts-comments.nvim'
+on_event = ['VimEnter']
+lua_source = '''
+require("ts-comments").setup()
+'''
+
+[[plugins]]
+repo = 'andersevenrud/nvim_context_vt'
+on_event = ['VimEnter']
+lua_source = '''
+require("nvim_context_vt").setup({
+    prefix = ''
+})
+'''

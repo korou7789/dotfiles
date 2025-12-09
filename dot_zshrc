@@ -1,0 +1,49 @@
+# history
+export HISTFILE=${HOME}/.zsh_history
+export HISTSIZE=1000
+export SAVEHIST=100000
+setopt HIST_IGNORE_ALL_DUPS
+setopt EXTENDED_HISTORY
+
+# alias/hash
+alias -g ...="../../"
+hash -d dot=$HOME/dotfiles/
+
+alias ls="eza -F"
+alias ll="eza -F -l"
+alias la="eza -F -la"
+
+alias cd="z"
+
+# utilities
+
+bindkey -e
+
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey "^O" edit-command-line
+
+bindkey "^U" push-line
+
+autoload -Uz history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^dp" history-beginning-search-backward-end
+bindkey "^n" history-beginning-search-forward-end
+
+autoload -Uz compinit && compinit
+
+# path
+EDITOR="nvim"
+
+eval "$(sheldon source)"
+eval "$(zoxide init zsh)"
+source <(fzf --zsh)
+export FZF_DEFAULT_COMMAND='fd --type file --follow --hidden --exclude .git'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+eval "$(starship init zsh)"
+export PATH="$PATH:$HOME/.deno/bin:$HOME/lua-language-server/bin"
+export FPATH="$PATH:$HOME/.cargo/bin/eza/completions/zsh:$FPATH"
+. "$HOME/.cargo/env"
+source <(zellij setup --generate-completion zsh | sed -Ee 's/^(_(zellij) ).*/compdef \1\2/' )

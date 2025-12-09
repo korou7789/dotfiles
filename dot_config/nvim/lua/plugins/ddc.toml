@@ -1,0 +1,109 @@
+[[plugins]]
+repo = 'Shougo/ddc.vim'
+on_event = ['InsertEnter', 'CmdlineEnter']
+depends = ['denops.vim']
+lua_source = '''
+require('plugins/ddc')
+'''
+lua_post_source = '''
+vim.lsp.config("*", {
+    capabilities = require("ddc_source_lsp").make_client_capabilities(),
+})
+'''
+
+[[plugins]]
+repo = 'Shougo/pum.vim'
+lua_post_source = '''
+vim.fn["pum#set_option"]{
+    border = 'single',
+    max_height = 20,
+    preview = true,
+}
+
+vim.keymap.set('i', '<C-n>', '<Cmd>call pum#map#insert_relative(+1)<CR>')
+vim.keymap.set('i', '<C-p>', '<Cmd>call pum#map#insert_relative(-1)<CR>')
+vim.keymap.set('i', '<C-y>', '<Cmd>call pum#map#confirm()<CR>')
+vim.keymap.set('i', '<C-e>', '<Cmd>call pum#map#cancel()<CR>')
+'''
+
+[[plugins]]
+repo = 'Shougo/ddc-ui-pum'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'vim-skk/skkeleton'
+depends = ['denops.vim']
+on_event = 'VimEnter'
+lua_add = '''
+vim.keymap.set({"i", "c", "t"}, "<C-l>", "<Plug>(skkeleton-toggle)")
+'''
+hook_source = '''
+call skkeleton#config(#{
+    \ globalDictionaries: ['~/.skk/SKK-JISYO.L'],
+    \ eggLikeNewline: v:true,
+    \ })
+call skkeleton#register_kanatable('rom', {
+    \ 'jj': 'escape'
+    \ })
+'''
+
+[[plugins]]
+repo = 'delphinus/skkeleton_indicator.nvim'
+lua_source = '''
+require("skkeleton_indicator").setup()
+'''
+on_source = 'skkeleton'
+
+
+[[plugins]]
+repo = 'uga-rosa/denippet.vim'
+on_source = ['ddc.vim']
+lua_post_source = '''
+for _, snip in ipairs(vim.fn.globpath(vim.fs.joinpath(vim.fn['dpp#get']('friendly-snippets').path, 'snippets'), '**/*.json', true, true)) do
+  vim.fn['denippet#load'](snip)
+end
+'''
+
+[[plugins]]
+repo = 'rafamadriz/friendly-snippets'
+on_source = ['denippet.vim']
+
+
+[[plugins]]
+repo = 'Shougo/ddc-source-around'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'LumaKernel/ddc-source-file'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-lsp'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-buffer'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-rg'
+on_source = 'ddc.vim'
+
+
+[[plugins]]
+repo = 'Shougo/ddc-filter-matcher_head'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'tani/ddc-fuzzy'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-filter-sorter_rank'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-filter-converter_remove_overlap'
+on_source = 'ddc.vim'
+
+
