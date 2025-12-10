@@ -2,7 +2,7 @@ local cache_path = vim.fn.stdpath("cache") .. "/dpp/repos/github.com"
 local dppSrc = cache_path .. "/Shougo/dpp.vim"
 local denopsSrc = cache_path .. "/vim-denops/denops.vim"
 
-vim.env.HOOKS_DIR = vim.fn.stdpath("config") .. "/lua/plugins"
+vim.env.HOOKS_DIR = vim.fn.stdpath("config") .. "/hooks"
 
 vim.opt.runtimepath:prepend(dppSrc)
 

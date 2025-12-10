@@ -1,3 +1,72 @@
+--- lua_add {{{
+local opts = { noremap = true, silent = true, buffer = true }
+
+vim.keymap.set("n", "<Leader>f", function() vim.fn["ddu#start"]( { name = "fd" } ) end, {noremap = true, silent = true})
+
+vim.keymap.set("n", "<Leader>g", function() vim.fn["ddu#start"]( { name = "grep" } ) end, {noremap = true, silent = true})
+
+vim.keymap.set("n", "<Leader>b", function() vim.fn["ddu#start"]( { name = "buffer" } ) end, {noremap = true, silent = true})
+
+vim.keymap.set("n", "<Leader>h", function() vim.fn["ddu#start"]( { name = "help" } ) end, {noremap = true, silent = true})
+
+vim.keymap.set("n", "<Leader>l", function() vim.fn["ddu#start"]( { name = "lsp" } ) end, {noremap = true, silent = true})
+
+vim.keymap.set("n", "<Leader>t", function() vim.fn["ddu#start"]( { name = "line" } ) end, {noremap = true, silent = true})
+
+vim.keymap.set("n", "<Leader>m", function() vim.fn["ddu#start"]( { name = "mr" } ) end, {noremap = true, silent = true})
+
+vim.keymap.set("n", "<Leader>s", function() vim.fn["ddu#start"]( { name = "source" } ) end, {noremap = true, silent = true})
+
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "ddu-ff",
+    callback = function()
+    vim.keymap.set({"n"}, "q", [[<Cmd>call ddu#ui#async_action("quit")<CR>]], opts)
+    vim.keymap.set({"n"}, "<CR>", [[<Cmd>call ddu#ui#async_action("itemAction")<CR>]], opts)
+    vim.keymap.set({"n"}, "i", [[<Cmd>call ddu#ui#async_action("openFilterWindow")<CR>]], opts)
+    vim.keymap.set({"n"}, "p", [[<Cmd>call ddu#ui#async_action("toggleAutoAction")<CR>]], opts)
+    vim.keymap.set({"n"}, "a", function() vim.fn["ddu#ui#async_action"]("chooseAction") end, opts)
+
+    vim.keymap.set({"n"}, "<C-p>", [[<Cmd>call ddu#ui#do_action('previewExecute', #{ command: 'execute "normal! \<C-u>"' })<CR>]], opts)
+    vim.keymap.set({"n"}, "<C-n>", [[<Cmd>call ddu#ui#do_action('previewExecute', #{ command: 'execute "normal! \<C-d>"' })<CR>]], opts)
+
+    vim.keymap.set({"n"}, "<Tab>", function() vim.fn["ddu#ui#do_action"]("toggleSelectItem") end, opts)
+    end,
+})
+
+vim.keymap.set("n", "<Leader>F", function()
+vim.fn["ddu#start"]( { name = "filer" } ) end, { noremap = true })
+
+vim.api.nvim_create_autocmd("FileType", {
+        pattern = "ddu-filer",
+        callback = function()
+        vim.keymap.set({"n"}, "q", function() vim.fn["ddu#ui#do_action"]("quit") end, opts)
+
+        vim.keymap.set({"n"}, "<CR>", function()
+                if not vim.fn["ddu#ui#get_item"]().isTree then
+                    vim.fn["ddu#ui#do_action"]("itemAction")
+                end
+            end, opts)
+
+        vim.keymap.set({"n"}, "p", [[<Cmd>call ddu#ui#do_action("toggleAutoAction")<CR>]], opts)
+        vim.keymap.set({"n"}, "h", function() vim.fn["ddu#ui#async_action"]("itemAction", { name = "narrow", params = { path = ".." } } ) end, opts)
+        vim.keymap.set({"n"}, "l", function() vim.fn["ddu#ui#async_action"]("itemAction", { name = "narrow" }) end, opts)
+        vim.keymap.set({"n"}, "o", function() vim.fn["ddu#ui#async_action"]("expandItem", { mode = "toggle" }) end, opts)
+        vim.keymap.set({"n"}, "i", function() vim.fn["ddu#ui#do_action"]("openFilterWindow") end, opts)
+        vim.keymap.set({"n"}, "n", function() vim.fn["ddu#ui#do_action"]("itemAction", { name = "newFile" }) end, opts)
+        vim.keymap.set({"n"}, "N", function() vim.fn["ddu#ui#do_action"]("itemAction", { name = "newDirectory" }) end, opts)
+        vim.keymap.set({"n"}, "r", function() vim.fn["ddu#ui#do_action"]("itemAction", { name = "rename" }) end, opts)
+        vim.keymap.set({"n"}, "d", function() vim.fn["ddu#ui#do_action"]("itemAction", { name = "delete" }) end, opts)
+        vim.keymap.set({"n"}, "a", function() vim.fn["ddu#ui#do_action"]("chooseAction") end, opts)
+
+        vim.keymap.set({"n"}, "<Tab>", function() vim.fn["ddu#ui#do_action"]("toggleSelectItem") end, opts)
+    end,
+})
+
+--- }}}
+
+--- lua_source {{{
+
 local function floor(v)
   return v >= 0 and v - (v % 1) or v - (v % 1) - ((v % 1) ~= 0 and 1 or 0)
 end
@@ -272,66 +341,4 @@ vim.fn["ddu#custom#patch_local"]("command_history", {
     }
 })
 
-local opts = { noremap = true, silent = true, buffer = true }
-
-vim.keymap.set("n", "<Leader>f", function() vim.fn["ddu#start"]( { name = "fd" } ) end, {noremap = true, silent = true})
-
-vim.keymap.set("n", "<Leader>g", function() vim.fn["ddu#start"]( { name = "grep" } ) end, {noremap = true, silent = true})
-
-vim.keymap.set("n", "<Leader>b", function() vim.fn["ddu#start"]( { name = "buffer" } ) end, {noremap = true, silent = true})
-
-vim.keymap.set("n", "<Leader>h", function() vim.fn["ddu#start"]( { name = "help" } ) end, {noremap = true, silent = true})
-
-vim.keymap.set("n", "<Leader>l", function() vim.fn["ddu#start"]( { name = "lsp" } ) end, {noremap = true, silent = true})
-
-vim.keymap.set("n", "<Leader>t", function() vim.fn["ddu#start"]( { name = "line" } ) end, {noremap = true, silent = true})
-
-vim.keymap.set("n", "<Leader>m", function() vim.fn["ddu#start"]( { name = "mr" } ) end, {noremap = true, silent = true})
-
-vim.keymap.set("n", "<Leader>s", function() vim.fn["ddu#start"]( { name = "source" } ) end, {noremap = true, silent = true})
-
-
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = "ddu-ff",
-    callback = function()
-    vim.keymap.set({"n"}, "q", [[<Cmd>call ddu#ui#async_action("quit")<CR>]], opts)
-    vim.keymap.set({"n"}, "<CR>", [[<Cmd>call ddu#ui#async_action("itemAction")<CR>]], opts)
-    vim.keymap.set({"n"}, "i", [[<Cmd>call ddu#ui#async_action("openFilterWindow")<CR>]], opts)
-    vim.keymap.set({"n"}, "p", [[<Cmd>call ddu#ui#async_action("toggleAutoAction")<CR>]], opts)
-    vim.keymap.set({"n"}, "a", function() vim.fn["ddu#ui#async_action"]("chooseAction") end, opts)
-
-    vim.keymap.set({"n"}, "<C-p>", [[<Cmd>call ddu#ui#do_action('previewExecute', #{ command: 'execute "normal! \<C-u>"' })<CR>]], opts)
-    vim.keymap.set({"n"}, "<C-n>", [[<Cmd>call ddu#ui#do_action('previewExecute', #{ command: 'execute "normal! \<C-d>"' })<CR>]], opts)
-
-    vim.keymap.set({"n"}, "<Tab>", function() vim.fn["ddu#ui#do_action"]("toggleSelectItem") end, opts)
-    end,
-})
-
-vim.keymap.set("n", "<Leader>F", function()
-vim.fn["ddu#start"]( { name = "filer" } ) end, { noremap = true })
-
-vim.api.nvim_create_autocmd("FileType", {
-        pattern = "ddu-filer",
-        callback = function()
-        vim.keymap.set({"n"}, "q", function() vim.fn["ddu#ui#do_action"]("quit") end, opts)
-
-        vim.keymap.set({"n"}, "<CR>", function()
-                if not vim.fn["ddu#ui#get_item"]().isTree then
-                    vim.fn["ddu#ui#do_action"]("itemAction")
-                end
-            end, opts)
-
-        vim.keymap.set({"n"}, "p", [[<Cmd>call ddu#ui#do_action("toggleAutoAction")<CR>]], opts)
-        vim.keymap.set({"n"}, "h", function() vim.fn["ddu#ui#async_action"]("itemAction", { name = "narrow", params = { path = ".." } } ) end, opts)
-        vim.keymap.set({"n"}, "l", function() vim.fn["ddu#ui#async_action"]("itemAction", { name = "narrow" }) end, opts)
-        vim.keymap.set({"n"}, "o", function() vim.fn["ddu#ui#async_action"]("expandItem", { mode = "toggle" }) end, opts)
-        vim.keymap.set({"n"}, "i", function() vim.fn["ddu#ui#do_action"]("openFilterWindow") end, opts)
-        vim.keymap.set({"n"}, "n", function() vim.fn["ddu#ui#do_action"]("itemAction", { name = "newFile" }) end, opts)
-        vim.keymap.set({"n"}, "N", function() vim.fn["ddu#ui#do_action"]("itemAction", { name = "newDirectory" }) end, opts)
-        vim.keymap.set({"n"}, "r", function() vim.fn["ddu#ui#do_action"]("itemAction", { name = "rename" }) end, opts)
-        vim.keymap.set({"n"}, "d", function() vim.fn["ddu#ui#do_action"]("itemAction", { name = "delete" }) end, opts)
-        vim.keymap.set({"n"}, "a", function() vim.fn["ddu#ui#do_action"]("chooseAction") end, opts)
-
-        vim.keymap.set({"n"}, "<Tab>", function() vim.fn["ddu#ui#do_action"]("toggleSelectItem") end, opts)
-    end,
-})
+--- }}}

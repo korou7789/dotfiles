@@ -1,3 +1,4 @@
+--- lua_source {{{
 local global_sources = {
     'lsp',
     'file',
@@ -76,3 +77,10 @@ vim.fn["ddc#custom#patch_global"]("filterParams", {
 })
 
 vim.fn["ddc#enable"]()
+--- }}}
+
+--- lua_post_source {{{
+vim.lsp.config("*", {
+    capabilities = require("ddc_source_lsp").make_client_capabilities(),
+})
+--- }}}

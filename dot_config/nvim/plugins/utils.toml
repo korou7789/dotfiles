@@ -110,15 +110,6 @@ require("dial.config").augends:register_group {
 '''
 
 [[plugins]]
-repo = 'rhysd/clever-f.vim'
-on_map = ['f', 'F', 't', 'T']
-lua_add = '''
-vim.g.clever_f_smart_case = 1
-vim.g.clever_f_mark_direct = 1
-vim.g.clever_f_across_no_line = 1
-'''
-
-[[plugins]]
 repo = 'nacro90/numb.nvim'
 on_event = 'CmdlineEnter'
 lua_source = '''
@@ -180,7 +171,7 @@ require("ibl").setup()
 
 [[plugins]]
 repo = 'folke/noice.nvim'
-on_event = 'VimEnter'
+on_source = 'nui.nvim'
 depends = [ 'nui.nvim', 'nvim-treesitter' ]
 lua_source = '''
 require("noice").setup({})

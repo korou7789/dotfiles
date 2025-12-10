@@ -17,5 +17,3 @@ vim.o.smartindent = true
 
 vim.g.mapleader = " "
 vim.keymap.set("" ,"<Space>", "<Nop>")
-
-vim.cmd[[colorscheme catppuccin]]

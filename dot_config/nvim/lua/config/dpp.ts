@@ -26,6 +26,8 @@ export class Config extends BaseConfig {
     }): Promise<{
         plugins: Plugin[];
         stateLines: string[];
+        ftplugins?: Record<string, string>;
+        hooksFiles?: string[];
     }> {
         args.contextBuilder.setGlobal({
             protocols: ["git"],
@@ -35,29 +37,23 @@ export class Config extends BaseConfig {
         const dotfilesDir = "~/.config/nvim/plugins";
 
 	const tomlFiles = [
-		"dpp.toml",
-		"colorscheme.toml",
-        "ddu.toml",
-        "ddc.toml",
-		"lsp.toml",
-        "treesitter.toml",
-        "utils.toml",
+		{ name: "dpp.toml", lazy: false },
+		{ name: "colorscheme.toml", lazy: false },
+        { name: "ddu.toml", lazy: false },
+        { name: "ddc.toml", lazy: true },
+		{ name: "lsp.toml", lazy: true },
+        { name: "treesitter.toml", lazy: true },
+        { name: "utils.toml", lazy: true },
 	];
 	
-	const immediateLoadTargets = [
-		"dpp.toml",
-		"colorscheme.toml",
-	];
 
         const tomls: Toml[] = [];
 	
         for (const file of tomlFiles) {
             const tomlPath = await fn.expand(
                 args.denops,
-                dotfilesDir + "/" + file,
+                `${dotfilesDir}/${file.name}`,
             );
-
-            const isLazy = !immediateLoadTargets.includes(file);
             
             const toml = (await args.dpp.extAction(
                 args.denops,
@@ -68,7 +64,7 @@ export class Config extends BaseConfig {
                 {
                     path: tomlPath,
                     options: {
-                        lazy: isLazy,
+                        lazy: file.lazy,
                     },
                 }
             )) as Toml | undefined;
@@ -81,6 +77,27 @@ export class Config extends BaseConfig {
         const ftplugins: Record<string, string> = {};
         const hooksFiles: string[] = [];
 
+        for (const toml of tomls) {
+            for (const plugin of toml.plugins ?? []) {
+                recordPlugins[plugin.name] = plugin;
+            }
+
+            if (toml.ftplugins) {
+                for (const filetype of Object.keys(toml.ftplugins)) {
+                    if (ftplugins[filetype]) {
+                        ftplugins[filetype] += `\n${toml.ftplugins[filetype]}`;
+                    } else {
+                        ftplugins[filetype] = toml.ftplugins[filetype];
+                    }
+                }
+            }
+
+            if (toml.hooks_file) {
+                hooksFiles.push(toml.hooks_file);
+            }
+        }
+
+        /*
         tomls.forEach((toml) => {
             for (const plugin of toml.plugins ?? []) {
                 recordPlugins[plugin.name] = plugin;
@@ -100,6 +117,9 @@ export class Config extends BaseConfig {
                 hooksFiles.push(toml.hooks_file);
             }
         });
+        */
+
+        const allPlugins = Object.values(recordPlugins);
 
         // use lazy
         const lazyResult = (await args.dpp.extAction(
@@ -109,7 +129,7 @@ export class Config extends BaseConfig {
             "lazy",
             "makeState",
             {
-                plugins: Object.values(recordPlugins),
+                plugins: allPlugins,
             }
         )) as LazyMakeStateResult | undefined;
 
