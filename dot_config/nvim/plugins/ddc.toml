@@ -2,9 +2,7 @@
 repo = 'Shougo/ddc.vim'
 on_event = ['InsertEnter', 'CmdlineEnter']
 depends = ['denops.vim']
-lua_source = '''
-require('plugins/ddc')
-'''
+hooks_file = '$HOOKS_DIR/ddc.lua'
 lua_post_source = '''
 vim.lsp.config("*", {
     capabilities = require("ddc_source_lsp").make_client_capabilities(),

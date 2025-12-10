@@ -32,7 +32,7 @@ export class Config extends BaseConfig {
         });
 
         const [context, options] = await args.contextBuilder.get(args.denops);
-        const dotfilesDir = "~/.config/nvim/lua/plugins";
+        const dotfilesDir = "~/.config/nvim/plugins";
 
 	const tomlFiles = [
 		"dpp.toml",

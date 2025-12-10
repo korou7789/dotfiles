@@ -28,11 +28,6 @@ repo = 'mvllow/modes.nvim'
 on_event = ['CursorHold', 'InsertLeave']
 lua_source = '''
 require('modes').setup({
-	colors = {
-		insert = "#ffffff",
-		visual = "#a074c4",
-	},
-
 	line_opacity = 0.1,
 
 	set_cursor = true,
@@ -116,7 +111,6 @@ require("dial.config").augends:register_group {
 
 [[plugins]]
 repo = 'rhysd/clever-f.vim'
-# on_event = ['BufReadPre', 'BufNewFile']
 on_map = ['f', 'F', 't', 'T']
 lua_add = '''
 vim.g.clever_f_smart_case = 1
@@ -126,6 +120,7 @@ vim.g.clever_f_across_no_line = 1
 
 [[plugins]]
 repo = 'nacro90/numb.nvim'
+on_event = 'CmdlineEnter'
 lua_source = '''
 require("numb").setup()
 '''
@@ -139,7 +134,7 @@ vim.keymap.set("i", "<C-CR>", function() require("in-and-out").in_and_out() end)
 
 [[plugins]]
 repo = 'lewis6991/gitsigns.nvim'
-on_event = ['BufReadPre', 'BufNewFile']
+on_event = ['BufReadPost', 'BufNewFile']
 lua_source = '''
 require("gitsigns").setup()
 '''
@@ -148,21 +143,6 @@ require("gitsigns").setup()
 repo = 'lambdalisue/vim-gin'
 depends = 'denops.vim'
 on_cmd = 'Gin'
-
-[[plugins]]
-repo = 'lambdalisue/vim-initial'
-on_cmd = 'Initial'
-lua_add = '''
-vim.keymap.set({"n", "x", "o"}, ";;", "<Cmd>Initial<CR>", { silent = true })
-'''
-
-
-[[plugins]]
-repo = 'folke/flash.nvim'
-on_event = 'VimEnter'
-lua_source = '''
-vim.keymap.set({"n", "x", "o"}, ";s", function() require("flash").jump() end, { noremap = true, silent = true })
-'''
 
 [[plugins]]
 repo = 'tyamaz/jumpcursor.vim'
@@ -181,13 +161,10 @@ vim.keymap.set("c", "<leader>s", function() vim.fn["seak#select"]({nohlsearch = 
 
 [[plugins]]
 repo = 'haya14busa/vim-edgemotion'
-on_event = 'InsertEnter'
-# on_map = '<Plug>(edgemotion'
+on_map = ['<Plug>(edgemotion-']
 hook_add = '''
-map <C-j> <Nop>
-map <C-k> <Nop>
-map <C-j> <Plug>(edgemotion-j)
-map <C-k> <Plug>(edgemotion-k)
+nnoremap <C-j> <Plug>(edgemotion-j)
+nnoremap <C-k> <Plug>(edgemotion-k)
 '''
 
 [[plugins]]
@@ -196,7 +173,7 @@ on_source = 'ddu-source-mr'
 
 [[plugins]]
 repo = 'lukas-reineke/indent-blankline.nvim'
-on_event = 'VimEnter'
+on_event = ['BufReadPost', 'BufNewFile']
 lua_source = '''
 require("ibl").setup()
 '''
@@ -204,28 +181,11 @@ require("ibl").setup()
 [[plugins]]
 repo = 'folke/noice.nvim'
 on_event = 'VimEnter'
-depends = 'nui.nvim'
+depends = [ 'nui.nvim', 'nvim-treesitter' ]
 lua_source = '''
-require("noice").setup({
-    cmdline = {
-        enabled = true,
-        view = "cmdline_popup",
-    },
-    notify = {
-        enabled = true,
-        view = "mini",
-    },
-    messages = {
-        enabled = true,
-        view = "mini",
-    }
-})
+require("noice").setup({})
 '''
 
 [[plugins]]
 repo = 'MunifTanjim/nui.nvim'
-on_event = 'VimEnter'
-
-[[plugins]]
-repo = 'rcarriga/nvim-notify'
 on_event = 'VimEnter'

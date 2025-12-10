@@ -1,0 +1,254 @@
+let s:jetpackfile = expand('<sfile>:p:h') .. '/pack/jetpack/opt/vim-jetpack/plugin/jetpack.vim'
+let s:jetpackurl = "https://raw.githubusercontent.com/tani/vim-jetpack/master/plugin/jetpack.vim"
+if !filereadable(s:jetpackfile)
+  call system(printf('curl -fsSLo %s --create-dirs %s', s:jetpackfile, s:jetpackurl))
+endif
+
+packadd vim-jetpack
+call jetpack#begin()
+Jetpack 'tani/vim-jetpack'
+Jetpack 'vim-jp/vimdoc-ja'
+
+Jetpack 'vim-denops/denops.vim'
+Jetpack 'lambdalisue/fern.vim'
+Jetpack 'lambdalisue/vim-fern-hijack'
+Jetpack 'lambdalisue/vim-nerdfont'
+Jetpack 'lambdalisue/vim-fern-renderer-nerdfont'
+Jetpack 'lambdalisue/fall.vim'
+Jetpack 'lambdalisue/vim-initial'
+Jetpack 'lambdalisue/gin.vim'
+
+Jetpack 'Shougo/ddc.vim'
+Jetpack 'Shougo/pum.vim'
+Jetpack 'Shougo/ddc-ui-pum'
+Jetpack 'Shougo/ddc-source-around'
+Jetpack 'LumaKernel/ddc-source-file'
+Jetpack 'Shougo/ddc-source-cmdline'
+Jetpack 'Shougo/ddc-source-cmdline_history'
+Jetpack 'Shougo/ddc-source-line'
+Jetpack 'Shougo/neco-vim'
+Jetpack 'matsui54/ddc-buffer'
+Jetpack 'tani/ddc-fuzzy'
+Jetpack 'Shougo/ddc-filter-converter_remove_overlap'
+
+Jetpack 'Shougo/ddt.vim'
+Jetpack 'Shougo/ddt-ui-terminal'
+Jetpack 'Shougo/ddt-ui-shell'
+
+Jetpack 'cohama/lexima.vim'
+Jetpack 'haya14busa/vim-edgemotion'
+Jetpack 'hrsh7th/vim-eft'
+Jetpack 'hrsh7th/vim-searchx'
+Jetpack 'thinca/vim-quickrun'
+Jetpack 'tpope/vim-surround'
+Jetpack 'airblade/vim-gitgutter'
+Jetpack 'tomtom/tcomment_vim'
+Jetpack 'kana/vim-operator-user'
+Jetpack 'kana/vim-operator-replace'
+Jetpack 'thinca/vim-qfreplace'
+Jetpack 'itchyny/vim-qfedit'
+
+Jetpack 'cocopon/iceberg.vim'
+Jetpack 'sainnhe/gruvbox-material'
+call jetpack#end()
+
+" ===== OPTIONS =====
+syntax on
+colorscheme iceberg
+
+set cursorline
+
+set scrolloff=5
+
+set signcolumn=yes
+
+set wildoptions+=pum
+
+" search
+set incsearch
+set nohlsearch
+
+set ignorecase
+set smartcase
+set wrapscan
+
+" edit
+set smarttab
+set expandtab
+set shiftwidth=4
+set tabstop=4
+set shiftround
+set autoindent autoindent
+
+set matchpairs+=<:>
+
+let &grepprg='rg --vimgrep'
+
+" history
+augroup histclean
+  autocmd!
+  autocmd ModeChanged c:* call s:HistClean()
+augroup END
+
+function! s:HistClean() abort
+  let cmd = histget(":", -1)
+  if cmd == "x" || cmd == "xa" || cmd =~# "^w\\?q\\?a\\?!\\?$"
+    call histdel(":", -1)
+  endif
+endfunction
+
+" ===== KEYMAPS =====
+let g:mapleader=","
+
+inoremap <silent> jj <ESC>
+nnoremap <F2> <Cmd>noh<CR>
+
+nnoremap j gj
+nnoremap k gk
+
+
+" ===== PLUGIN OPTIONS  =====
+
+" vim-eft
+nmap ; <Plug>(eft-repeat)
+xmap ; <Plug>(eft-repeat)
+omap ; <Plug>(eft-repeat)
+
+nmap f <Plug>(eft-f)
+xmap f <Plug>(eft-f)
+omap f <Plug>(eft-f)
+nmap F <Plug>(eft-F)
+xmap F <Plug>(eft-F)
+omap F <Plug>(eft-F)
+
+nmap t <Plug>(eft-t)
+xmap t <Plug>(eft-t)
+omap t <Plug>(eft-t)
+nmap T <Plug>(eft-T)
+xmap T <Plug>(eft-T)
+omap T <Plug>(eft-T)
+
+" vim-edgemotion
+map <C-j> <Plug>(edgemotion-j)
+map <C-k> <Plug>(edgemotion-k)
+
+" vim-initial
+nnoremap <silent> <leader><leader> <Cmd>Initial<CR>
+
+" fall.vim
+nnoremap <leader>f <Cmd>Fall file<CR>
+nnoremap <leader>b <Cmd>Fall buffer<CR>
+
+" vim-fern
+let g:fern#renderer = "nerdfont"
+nnoremap <leader>F <Cmd>Fern . -drawer<CR>
+
+" ddc.vim
+call ddc#custom#patch_global({
+    \ 'ui': 'pum',
+    \ 'autoCompleteEvents': [
+    \   'InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineChanged',
+    \ ],
+    \ 'cmdlineSources': {
+    \   ':': ['cmdline', 'cmdline_history', 'around'],
+    \   '/': ['around', 'line'],
+    \   '?': ['around', 'line'],
+    \ },
+    \})
+call ddc#custom#patch_global('sources', ['around', 'file', 'cmdline', 'buffer'])
+call ddc#custom#patch_global('filterParams', {
+    \ 'matcher_fuzzy': {
+    \   'splitMode': 'word'
+    \ }
+    \ })
+call ddc#custom#patch_global('sourceParams', {
+    \ 'around': {
+    \   'maxSize': 500,
+    \ },
+    \ })
+call ddc#custom#patch_filetype(['vim'], 'sources', ['around', 'necovim', 'file', 'buffer'])
+call ddc#custom#patch_global('sourceOptions', {
+	\ '_': {
+	\ 	'matchers': ['matcher_fuzzy'],
+	\ 	'sorters': ['sorter_fuzzy'],
+    \   'converters': ['converter_remove_overlap', 'converter_fuzzy'],
+	\ },
+    \ 'around': {
+    \   'mark': 'around',
+    \ },
+	\ 'file': {
+    \   'mark': 'file',
+	\	'isVolatile': v:true,
+	\	'forceCompletionPattern': '\S/\S*',
+	\ },
+    \ 'necovim': {'mark': 'vim'},
+    \ 'cmdline': {
+    \   'mark': 'cmdline',
+    \   'maxItems': 15,
+    \ },
+    \ 'cmdline_history': {
+    \   'mark': 'history',
+    \ },
+    \ 'line': {
+    \   'mark': 'line'
+    \ }
+	\ })
+call ddc#enable()
+
+inoremap <C-n> <Cmd>call pum#map#select_relative(+1)<CR>
+inoremap <C-p> <Cmd>call pum#map#select_relative(-1)<CR>
+inoremap <C-y> <Cmd>call pum#map#confirm()<CR>
+inoremap <C-e> <Cmd>call pum#map#cancel()<CR>
+
+nnoremap : <Cmd>call CommandlinePre()<CR>:
+function! CommandlinePre() abort
+    cnoremap <C-n> <Cmd>call pum#map#insert_relative(+1)<CR>
+    cnoremap <C-p> <Cmd>call pum#map#insert_relative(-1)<CR>
+    cnoremap <C-y> <Cmd>call pum#map#confirm()<CR>
+    cnoremap <C-e> <Cmd>call pum#map#cancel()<CR>
+
+    autocmd User DDCCmdlineLeave ++once call CommandlinePost()
+
+    call ddc#enable_cmdline_completion()
+endfunction
+function! CommandlinePost() abort
+    silent! cunmap <C-n>
+    silent! cunmap <C-p>
+    silent! cunmap <C-y>
+    silent! cunmap <C-e>
+endfunction
+
+call pum#set_option({
+    \ 'border': 'single',
+    \ })
+
+" ddt.vim
+call ddt#custom#patch_global({
+    \ 'ui': 'terminal',
+    \ 'uiParams': {
+    \   'terminal': {
+    \       'command': ['zsh'],
+    \       'promptPattern': '\w*% \?',
+    \           'split': 'vertical',
+    \   },
+    \   'shell': {
+    \       'prompt': '=\\\>',
+    \       'promptPattern': '\w*=\\\>\?',
+    \   },
+    \ },
+    \ })
+autocmd FileType ddt-shell call s:ddt_my_settings()
+function! s:ddt_my_settings() abort
+  nnoremap <buffer> <C-n>
+        \ <Cmd>call ddt#ui#do_action('nextPrompt')<CR>
+  nnoremap <buffer> <C-p>
+        \ <Cmd>call ddt#ui#do_action('previousPrompt')<CR>
+  nnoremap <buffer> <C-y>
+        \ <Cmd>call ddt#ui#do_action('pastePrompt')<CR>
+  nnoremap <buffer> <CR>
+        \ <Cmd>call ddt#ui#do_action('executeLine')<CR>
+  nnoremap <buffer> <leader>n
+      \ <Cmd>call ddt#ui#do_action('send', #{
+      \   str: 'git status',
+      \ })<CR>
+endfunction

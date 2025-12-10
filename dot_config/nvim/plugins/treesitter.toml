@@ -2,9 +2,9 @@
 repo = 'nvim-treesitter/nvim-treesitter'
 rev = 'main'
 hook_post_update = 'TSUpdate'
+on_event = ['VimEnter']
 lua_source = '''
 require("nvim-treesitter").setup()
-vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 local langs = {
 	'toml',
 	'typescript',
@@ -14,13 +14,13 @@ local langs = {
 }
 require("nvim-treesitter").install(langs)
 
-vim.treesitter.start = (function(wrapped)
-	return function(bufnr, lang)
-		lang = lang or vim.fn.getbufvar(bufnr or '', '&filetype')
-		pcall(wrapped, bufnr, lang)
-	end
-
-end)(vim.treesitter.start)
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = langs,
+    callback = function()
+        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        vim.treesitter.start()
+    end,
+})
 '''
 
 [[plugins]]
