@@ -1,8 +1,8 @@
 [[plugins]]
 repo = 'Shougo/ddu.vim'
 depends = ['denops.vim']
+on_event = ['CursorHold']
 hooks_file = '$HOOKS_DIR/ddu.lua'
-# hooks_file = '/home/ko7789/.config/nvim/hooks/ddu.lua'
 
 [[plugins]]
 repo = 'Shougo/ddu-ui-ff'
@@ -110,6 +110,6 @@ repo = 'kyoh86/ddu-filter-converter_hl_dir'
 on_source = 'ddu.vim'
 
 
-# [[plugins]]
-# repo = 'Shougo/ddu-commands.vim'
-# on_cmd = 'Ddu'
+[[plugins]]
+repo = 'Shougo/ddu-commands.vim'
+on_cmd = 'Ddu'

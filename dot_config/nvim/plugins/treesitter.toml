@@ -2,7 +2,7 @@
 repo = 'nvim-treesitter/nvim-treesitter'
 rev = 'main'
 hook_post_update = 'TSUpdate'
-on_event = ['VimEnter']
+on_event = ['BufReadPost']
 lua_source = '''
 require("nvim-treesitter").setup()
 local langs = {
@@ -25,14 +25,16 @@ vim.api.nvim_create_autocmd("FileType", {
 
 [[plugins]]
 repo = 'folke/ts-comments.nvim'
-on_event = ['VimEnter']
+on_event = ['BufReadPost']
+depends = ['nvim-treesitter']
 lua_source = '''
 require("ts-comments").setup()
 '''
 
 [[plugins]]
 repo = 'andersevenrud/nvim_context_vt'
-on_event = ['VimEnter']
+on_event = ['BufReadPost']
+depends = ['nvim-treesitter']
 lua_source = '''
 require("nvim_context_vt").setup({
     prefix = ''

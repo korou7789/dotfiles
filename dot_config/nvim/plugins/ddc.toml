@@ -1,32 +1,22 @@
 [[plugins]]
 repo = 'Shougo/ddc.vim'
 on_event = ['InsertEnter', 'CmdlineEnter']
-depends = ['denops.vim']
+depends = ['denops.vim', 'skkeleton', 'pum.vim']
 hooks_file = '$HOOKS_DIR/ddc.lua'
 
 [[plugins]]
 repo = 'Shougo/pum.vim'
-lua_post_source = '''
-vim.fn["pum#set_option"]{
-    border = 'single',
-    max_height = 20,
-    preview = true,
-}
-
-vim.keymap.set('i', '<C-n>', '<Cmd>call pum#map#insert_relative(+1)<CR>')
-vim.keymap.set('i', '<C-p>', '<Cmd>call pum#map#insert_relative(-1)<CR>')
-vim.keymap.set('i', '<C-y>', '<Cmd>call pum#map#confirm()<CR>')
-vim.keymap.set('i', '<C-e>', '<Cmd>call pum#map#cancel()<CR>')
-'''
+on_event = 'InsertEnter'
 
 [[plugins]]
 repo = 'Shougo/ddc-ui-pum'
+depends = 'pum.vim'
 on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'vim-skk/skkeleton'
 depends = ['denops.vim']
-on_event = 'VimEnter'
+on_event = 'InsertEnter'
 lua_add = '''
 vim.keymap.set({"i", "c", "t"}, "<C-l>", "<Plug>(skkeleton-toggle)")
 '''
@@ -82,6 +72,14 @@ on_source = 'ddc.vim'
 repo = 'Shougo/ddc-source-rg'
 on_source = 'ddc.vim'
 
+[[plugins]]
+repo = 'Shougo/ddc-source-cmdline'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-cmdline_history'
+on_source = 'ddc.vim'
+
 
 [[plugins]]
 repo = 'Shougo/ddc-filter-matcher_head'
@@ -98,5 +96,3 @@ on_source = 'ddc.vim'
 [[plugins]]
 repo = 'Shougo/ddc-filter-converter_remove_overlap'
 on_source = 'ddc.vim'
-
-

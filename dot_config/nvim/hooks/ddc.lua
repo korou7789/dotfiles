@@ -1,86 +1,46 @@
 --- lua_source {{{
-local global_sources = {
-    'lsp',
-    'file',
-    'denippet',
-    'around',
-    'buffer',
-    'rg',
-    'skkeleton',
-    'skkeleton_okuri',
-}
 
-vim.fn["ddc#custom#patch_global"]{
-    ui = 'pum',
-    sources = global_sources,
-}
+vim.fn["ddc#custom#load_config"](vim.env.HOOKS_DIR .. "/ddc.ts")
 
-vim.fn["ddc#custom#patch_global"]('sourceOptions', {
-    _ = {
-        ignoreCase = true,
-        matchers = {'matcher_head', 'matcher_fuzzy'},
-        sorters = {'sorter_rank', 'sorter_fuzzy'},
-        converters = {
-            'converter_remove_overlap',
-            'converter_fuzzy',
-        },
-    },
-
-    lsp = {
-        mark = '[LSP]',
-        isVolatile = true,
-        forceCompletionPattern = [[\.\w*|:\w*|->\w*]],
-    },
-
-    denippet = {
-        mark = '[SNIP]'
-    },
-
-    file = {
-        mark = '[FILE]',
-        isVolatile = true,
-        forceCompletionPattern = [[\S/\S*]],
-    },
-
-    buffer = {
-        mark = '[BUF]'
-    },
-
-    rg = {
-        mark = '[RG]',
-        minAutoCompleteLength = 4,
-    },
-
-    skkeleton = {
-        mark = '[SKK]',
-        matchers = {},
-        sorters = {},
-        converters = {},
-        isVolatile = true,
-        minAutoCompleteLength = 1,
-    },
-
-    ["skkeleton_okuri"] = {
-        mark = '[SKK*]',
-        matchers = {},
-        sorters = {},
-        converters = {},
-        isVolatile = true,
-        minAutoCompleteLength = 1,
-    },
-})
-
-vim.fn["ddc#custom#patch_global"]("filterParams", {
-    ["matchers_fuzzy"] = {
-        splitMode = "word",
-    },
-})
-
+vim.fn["ddc#enable_terminal_completion"]()
 vim.fn["ddc#enable"]()
+
+-- pum
+vim.fn["pum#set_option"]{
+    border = 'single',
+    max_height = 20,
+    preview = true,
+}
+
+vim.keymap.set({ "i", "t" }, "<C-n>", function() vim.fn["pum#map#insert_relative"](1, "loop") end)
+vim.keymap.set({ "i", "t" }, "<C-p>", function() vim.fn["pum#map#insert_relative"](-1, "loop") end)
+vim.keymap.set({"i", "t" }, "<C-y>", function () vim.fn["pum#map#confirm"]() end)
+
+vim.api.nvim_create_user_command("CommandlinePre", function()
+    vim.keymap.set("c", "<C-n>", function() vim.fn["pum#map#insert_relative"](1, "loop") end)
+    vim.keymap.set("c", "<C-p>", function() vim.fn["pum#map#insert_relative"](-1, "loop") end)
+    vim.keymap.set("c", "<C-y>", function () vim.fn["pum#map#confirm"]() end)
+    vim.api.nvim_create_autocmd("User", {
+        pattern = "DDCCmdlineLeave",
+        once = true,
+        callback = function()
+            vim.keymap.del("c", "<C-n>")
+            vim.keymap.del("c", "<C-p>")
+            vim.keymap.del("c", "<C-y>")
+        end,
+    })
+    vim.fn["ddc#enable_cmdline_completion"]()
+end, {})
+
+vim.keymap.set("n", ":", [[<Cmd>CommandlinePre<CR>:]])
+vim.keymap.set("n", "/", [[<Cmd>CommandlinePre<CR>:]])
+
 --- }}}
 
 --- lua_post_source {{{
+
 vim.lsp.config("*", {
     capabilities = require("ddc_source_lsp").make_client_capabilities(),
 })
+
 --- }}}
