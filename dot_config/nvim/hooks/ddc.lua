@@ -33,7 +33,8 @@ vim.api.nvim_create_user_command("CommandlinePre", function()
 end, {})
 
 vim.keymap.set("n", ":", [[<Cmd>CommandlinePre<CR>:]])
-vim.keymap.set("n", "/", [[<Cmd>CommandlinePre<CR>:]])
+vim.keymap.set("n", "/", [[<Cmd>CommandlinePre<CR>/]])
+vim.keymap.set("n", "?", [[<Cmd>CommandlinePre<CR>?]])
 
 --- }}}
 

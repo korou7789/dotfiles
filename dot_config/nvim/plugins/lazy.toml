@@ -1,4 +1,9 @@
 [[plugins]]
+repo = 'vim-jp/vimdoc-ja'
+on_event = ['CmdlineEnter', 'CursorHold']
+hook_add = 'set helplang=ja,en'
+
+[[plugins]]
 repo = 'max397574/better-escape.nvim'
 on_event = ['InsertEnter']
 lua_source = '''
@@ -25,24 +30,24 @@ require("incline").setup()
 
 [[plugins]]
 repo = 'mvllow/modes.nvim'
-on_event = ['CursorHold', 'InsertLeave']
+on_event = ['CursorHold', 'InsertEnter']
 hooks_file = '$HOOKS_DIR/modes.lua'
 
 [[plugins]]
 repo = 'kevinhwang91/nvim-hlslens'
-on_event = ['BufReadPost']
+on_event = ['BufRead', 'BufNewFile']
 hooks_file = '$HOOKS_DIR/hlslens.lua'
 
 [[plugins]]
 repo = 'kylechui/nvim-surround'
-on_event = ['BufReadPost']
+on_event = ['BufRead', 'BufNewFile']
 lua_source = '''
 require("nvim-surround").setup()
 '''
 
 [[plugins]]
 repo = 'monaqa/dial.nvim'
-on_event = ['BufReadPost']
+on_event = ['BufRead', 'BufNewFile']
 hooks_file = '$HOOKS_DIR/dial.lua'
 
 [[plugins]]
@@ -61,7 +66,7 @@ vim.keymap.set("i", "<C-CR>", function() require("in-and-out").in_and_out() end)
 
 [[plugins]]
 repo = 'lewis6991/gitsigns.nvim'
-on_event = ['BufReadPost', 'BufNewFile']
+on_event = ['BufRead', 'BufNewFile']
 lua_source = '''
 require("gitsigns").setup()
 '''
@@ -98,18 +103,17 @@ repo = 'lambdalisue/vim-mr'
 
 [[plugins]]
 repo = 'shellRaining/hlchunk.nvim'
-on_event = ['BufReadPre', 'BufNewFile']
+on_event = ['BufRead', 'BufNewFile']
 hooks_file = '$HOOKS_DIR/hlchunk.lua'
 
 [[plugins]]
 repo = 'folke/noice.nvim'
-on_event = 'BufReadPost'
+on_event = ['BufRead', 'BufNewFile', 'CmdlineEnter', 'InsertEnter']
 depends = [ 'nui.nvim', 'nvim-treesitter' ]
 hooks_file = '$HOOKS_DIR/noice.lua'
 
 [[plugins]]
 repo = 'MunifTanjim/nui.nvim'
-on_event = 'BufReadPost'
 
 [[plugins]]
 repo = 'glacambre/firenvim'

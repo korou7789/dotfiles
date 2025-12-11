@@ -1,6 +1,4 @@
 --- lua_add {{{
-local opts = { noremap = true, silent = true, buffer = true }
-
 local maps = {
     n = {
         ["<leader>f"] = function() vim.fn["ddu#start"]({ name = "fd" }) end,
@@ -33,7 +31,7 @@ vim.api.nvim_create_autocmd("FileType", {
                 ["p"] = function() vim.fn["ddu#ui#async_action"]("toggleAutoAction") end,
                 ["a"] = function() vim.fn["ddu#ui#async_action"]("chooseAction") end,
                 ["<Tab>"] = function() vim.fn["ddu#ui#async_action"]("toggleSelectItem") end,
-                
+
                 ["<C-p>"] = function() vim.fn["ddu#ui#async_action"]("previewExecute", { command = [[execute "normal! \<C-u>"]] }) end,
                 ["<C-n>"] = function() vim.fn["ddu#ui#async_action"]("previewExecute", { command = [[execute "normal! \<C-d>"]] }) end,
             },
@@ -50,18 +48,10 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
         pattern = "ddu-filer",
         callback = function()
-        vim.keymap.set({"n"}, "<CR>", function()
-                if not vim.fn["ddu#ui#get_item"]().isTree then
-                    vim.fn["ddu#ui#do_action"]("itemAction")
-                end
-            end, opts)
-
-        vim.keymap.set({"n"}, "<Tab>", function() vim.fn["ddu#ui#do_action"]("toggleSelectItem") end, opts)
-
         local maps = {
             n = {
                 ["<CR>"] = function()
-                    if not vim.fn["ddu#ui#get_item"]() then
+                    if not vim.fn["ddu#ui#get_item"]().isTree then
                         vim.fn["ddu#ui#do_action"]("itemAction")
                     end
                 end,

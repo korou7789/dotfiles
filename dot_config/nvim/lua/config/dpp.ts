@@ -43,7 +43,7 @@ export class Config extends BaseConfig {
         { name: "ddc.toml", lazy: true },
 		{ name: "lsp.toml", lazy: true },
         { name: "treesitter.toml", lazy: true },
-        { name: "utils.toml", lazy: true },
+        { name: "lazy.toml", lazy: true },
 	];
 
         const tomls: Toml[] = [];

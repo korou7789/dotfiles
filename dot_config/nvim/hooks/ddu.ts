@@ -163,10 +163,5 @@ export class Config extends BaseConfig {
                 name: "mr",
             }],
         })
-        args.contextBuilder.patchLocal("plugin", {
-            sources: [{
-                name: "dpp",
-            }],
-        })
     }
 }
