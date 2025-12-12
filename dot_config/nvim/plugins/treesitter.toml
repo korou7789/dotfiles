@@ -25,7 +25,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 [[plugins]]
 repo = 'folke/ts-comments.nvim'
-on_event = ['BufReadPost']
+on_event = ['BufRead', 'BufNewFile']
 depends = ['nvim-treesitter']
 lua_source = '''
 require("ts-comments").setup()
@@ -33,7 +33,7 @@ require("ts-comments").setup()
 
 [[plugins]]
 repo = 'andersevenrud/nvim_context_vt'
-on_event = ['BufReadPost']
+on_event = ['BufNewFile', 'BufReadPost']
 depends = ['nvim-treesitter']
 lua_source = '''
 require("nvim_context_vt").setup({

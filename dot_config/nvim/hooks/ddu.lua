@@ -8,7 +8,6 @@ local maps = {
         ["<Leader>l"] = function() vim.fn["ddu#start"]( { name = "lsp" } ) end,
         ["<Leader>t"] = function() vim.fn["ddu#start"]( { name = "line" } ) end,
         ["<Leader>m"] = function() vim.fn["ddu#start"]( { name = "mr" } ) end,
-        ["<Leader>s"] = function() vim.fn["ddu#start"]( { name = "source" } ) end,
 
         ["<Leader>F"] = function() vim.fn["ddu#start"]( { name = "filer" } ) end,
     }
@@ -23,6 +22,7 @@ end
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "ddu-ff",
     callback = function()
+        vim.opt_local.cursorline = true
         local maps = {
             n = {
                 ["<CR>"] = function() vim.fn["ddu#ui#async_action"]("itemAction") end,
@@ -32,8 +32,13 @@ vim.api.nvim_create_autocmd("FileType", {
                 ["a"] = function() vim.fn["ddu#ui#async_action"]("chooseAction") end,
                 ["<Tab>"] = function() vim.fn["ddu#ui#async_action"]("toggleSelectItem") end,
 
-                ["<C-p>"] = function() vim.fn["ddu#ui#async_action"]("previewExecute", { command = [[execute "normal! \<C-u>"]] }) end,
-                ["<C-n>"] = function() vim.fn["ddu#ui#async_action"]("previewExecute", { command = [[execute "normal! \<C-d>"]] }) end,
+                ["<C-u>"] = function() vim.fn["ddu#ui#async_action"]("previewExecute", { command = [[execute "normal! \<C-u>"]] }) end,
+                ["<C-d>"] = function() vim.fn["ddu#ui#async_action"]("previewExecute", { command = [[execute "normal! \<C-d>"]] }) end,
+
+                ["c"] = function()
+                    vim.fn["ddu#ui#do_action"]("updateOptions", { sources = { { name = "source" } } })
+                    vim.fn["ddu#ui#do_action"]("redraw", { params = "refreshItems" })
+                end,
             },
         }
         for mode, mode_maps in pairs(maps) do
@@ -48,6 +53,7 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
         pattern = "ddu-filer",
         callback = function()
+        vim.opt_local.cursorline = true
         local maps = {
             n = {
                 ["<CR>"] = function()

@@ -17,7 +17,7 @@ vim.o.autoindent = true
 
 vim.o.grepprg = "rg --vimgrep"
 
-vim.o.updatetime = 1000
+vim.o.updatetime = 500
 
 vim.o.wrap = true
 

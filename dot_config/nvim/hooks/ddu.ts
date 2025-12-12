@@ -56,10 +56,11 @@ export class Config extends BaseConfig {
                     ignoreCase: true,
                     matchers: ["matcher_fzf"],
                     sorters: ["sorter_fzf"],
+                    converters: ["converter_hl_dir", "converter_devicon"],
                     smartCase: true,
                 },
                 file: {
-                    columns: ["filename"],
+                    columns: ["icon_filename"],
                 },
             },
             filterParams: {
@@ -90,6 +91,9 @@ export class Config extends BaseConfig {
                 command_history: {
                     defaultAction: "execute",
                 },
+                source: {
+                    defaultAction: "execute",
+                },
             },
             actionOptions: {
                 narrow: {
@@ -113,10 +117,6 @@ export class Config extends BaseConfig {
                     options: {
                         sorters: [
                             "sorter_mtime",
-                            "sorter_fzf",
-                        ],
-                        converters: [
-                            "converter_hl_dir",
                         ],
                     },
                 },
@@ -138,7 +138,7 @@ export class Config extends BaseConfig {
             sources: [{
                 name: "rg",
                 options: {
-                    matchers: [],
+                    matchers: ["converter_display_word", "matcher_fzf"],
                     volatile: true,
                 },
                 params: {
@@ -161,6 +161,11 @@ export class Config extends BaseConfig {
         args.contextBuilder.patchLocal("mr", {
             sources: [{
                 name: "mr",
+            }],
+        })
+        args.contextBuilder.patchLocal("source", {
+            sources: [{
+                name: "source",
             }],
         })
     }

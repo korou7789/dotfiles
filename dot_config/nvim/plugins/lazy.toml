@@ -73,7 +73,7 @@ require("gitsigns").setup()
 
 [[plugins]]
 repo = 'tani/dmacro.vim'
-on_map = '<Plug>(dmacro-play-macro)'
+on_map = { in = '<Plug>(dmacro-play-macro)'}
 lua_add = '''
 vim.keymap.set({ "i", "n" }, '<F5>', '<Plug>(dmacro-play-macro)')
 '''
@@ -100,6 +100,7 @@ vim.keymap.set({ "n", "v" }, "<C-k>", "<Plug>(edgemotion-k)")
 
 [[plugins]]
 repo = 'lambdalisue/vim-mr'
+on_source = 'ddu-source-mr'
 
 [[plugins]]
 repo = 'shellRaining/hlchunk.nvim'

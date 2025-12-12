@@ -1,7 +1,7 @@
 [[plugins]]
 repo = 'Shougo/ddc.vim'
 on_event = ['InsertEnter', 'CmdlineEnter']
-depends = ['denops.vim', 'skkeleton', 'pum.vim']
+depends = ['denops.vim', 'pum.vim', 'denippet.vim']
 hooks_file = '$HOOKS_DIR/ddc.lua'
 
 [[plugins]]
@@ -15,20 +15,9 @@ on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'vim-skk/skkeleton'
-depends = ['denops.vim']
-on_event = 'InsertEnter'
-lua_add = '''
-vim.keymap.set({"i", "c", "t"}, "<C-l>", "<Plug>(skkeleton-toggle)")
-'''
-hook_source = '''
-call skkeleton#config(#{
-    \ globalDictionaries: ['~/.skk/SKK-JISYO.L'],
-    \ eggLikeNewline: v:true,
-    \ })
-call skkeleton#register_kanatable('rom', {
-    \ 'jj': 'escape'
-    \ })
-'''
+depends = ['denops.vim', 'ddc.vim']
+on_map = { ict = '<Plug>(skkeleton-toggle)'}
+hooks_file = '$HOOKS_DIR/skkeleton.lua'
 
 [[plugins]]
 repo = 'delphinus/skkeleton_indicator.nvim'

@@ -14,8 +14,6 @@ export class Config extends BaseConfig {
                 "around",
                 "rg",
                 "file",
-                "skkeleton",
-                "skkeleton_okuri",
             ],
             autoCompleteEvents: [
                 "CmdlineChanged",
@@ -29,6 +27,7 @@ export class Config extends BaseConfig {
                 ":": ["cmdline", "cmdline_history", "around"],
                 "/": ["around"],
                 "?": ["around"],
+                "@": ["file" ,"around"]
             },
             sourceOptions: {
                 _: {
@@ -77,7 +76,6 @@ export class Config extends BaseConfig {
                 skkeleton_okuri: {
                     mark: "[SKK*]",
                     isVolatile: true,
-                    minAutoCompleteLength: 1,
                     matchers: [],
                     sorters: [],
                     converters: [],
