@@ -33,7 +33,7 @@ for _, url in ipairs(extension_urls) do
 	vim.opt.runtimepath:append(ext_path)
 end
 
-vim.g.denops_server_addr = "127.0.0.1:41979"
+-- vim.g.denops_server_addr = "127.0.0.1:41979"
 
 if dpp.load_state(dppBase) then
 	vim.opt.runtimepath:prepend(denopsSrc)

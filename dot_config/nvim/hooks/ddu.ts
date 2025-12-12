@@ -131,6 +131,9 @@ export class Config extends BaseConfig {
             ui: "filer",
             sources: [{
                 name: "file",
+                options: {
+                    converters: [],
+                },
                 params: {},
             }],
         })

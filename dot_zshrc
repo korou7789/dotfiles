@@ -43,7 +43,7 @@ export FZF_DEFAULT_COMMAND='fd --type file --follow --hidden --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 eval "$(starship init zsh)"
-export PATH="$PATH:$HOME/.deno/bin:$HOME/lua-language-server/bin"
+export PATH="$PATH:$HOME/.deno/bin:$HOME/lua-language-server/bin:$HOME/.nimble/bin"
 export FPATH="$PATH:$HOME/.cargo/bin/eza/completions/zsh:$FPATH"
 . "$HOME/.cargo/env"
 source <(zellij setup --generate-completion zsh | sed -Ee 's/^(_(zellij) ).*/compdef \1\2/' )

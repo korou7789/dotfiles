@@ -1,7 +1,7 @@
 [[plugins]]
 repo = 'Shougo/ddc.vim'
 on_event = ['InsertEnter', 'CmdlineEnter']
-depends = ['denops.vim', 'pum.vim', 'denippet.vim']
+depends = ['denops.vim', 'pum.vim']
 hooks_file = '$HOOKS_DIR/ddc.lua'
 
 [[plugins]]
@@ -30,11 +30,11 @@ on_source = 'skkeleton'
 [[plugins]]
 repo = 'uga-rosa/denippet.vim'
 on_source = ['ddc.vim']
-lua_post_source = '''
-for _, snip in ipairs(vim.fn.globpath(vim.fs.joinpath(vim.fn['dpp#get']('friendly-snippets').path, 'snippets'), '**/*.json', true, true)) do
-  vim.fn['denippet#load'](snip)
-end
-'''
+# lua_post_source = '''
+# for _, snip in ipairs(vim.fn.globpath(vim.fs.joinpath(vim.fn['dpp#get']('friendly-snippets').path, 'snippets'), '**/*.json', true, true)) do
+#   vim.fn['denippet#load'](snip)
+# end
+# '''
 
 [[plugins]]
 repo = 'rafamadriz/friendly-snippets'

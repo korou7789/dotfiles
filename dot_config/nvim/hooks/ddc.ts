@@ -10,7 +10,7 @@ export class Config extends BaseConfig {
             ui: "pum",
             sources: [
                 "lsp",
-                "denippet",
+                // "denippet",
                 "around",
                 "rg",
                 "file",
