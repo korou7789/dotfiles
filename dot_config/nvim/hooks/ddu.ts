@@ -2,6 +2,7 @@ import {
     BaseConfig,
     type ConfigArguments,
 } from "jsr:@shougo/ddu-vim@~9.4.0/config";
+import type { Denops } from "jsr:@denops/std";
 
 export class Config extends BaseConfig {
     override config(args: ConfigArguments) {
@@ -14,7 +15,7 @@ export class Config extends BaseConfig {
                     },
 
                     split: "floating",
-                    floatingBorder: "single",
+                    floatingBorder: "rounded",
                     winCol: "(&columns / 8)",
                     winRow: "(&lines / 8)",
                     winWidth: "(&columns - (&columns / 4))",
@@ -22,7 +23,7 @@ export class Config extends BaseConfig {
                     
                     
                     previewFloating: true,
-                    previewFloatingBorder: "single",
+                    previewFloatingBorder: "rounded",
                     previewSplit: "vertical",
                     previewWindowOptions: [
                         ["&signcolumn", "no"],
@@ -69,11 +70,6 @@ export class Config extends BaseConfig {
                 },
             },
             sourceParams: {
-                file_external: {
-                    ignoreDirectories: [
-                        ".git",
-                    ],
-                },
             },
             kindOptions: {
                 action: {
@@ -101,24 +97,18 @@ export class Config extends BaseConfig {
                 },
             },
         })
-        args.contextBuilder.patchLocal("fd", {
+        args.contextBuilder.patchLocal("file_recursive", {
             sources: [{
-                name: "file_external",
+                name: "file_rec",
                 params: {
-                    cmd: [
-                        "fd", 
-                        "--hidden",
-                        "--type",
-                        "f",
-                        "--color",
-                        "never",
-                        "--glob",
+                    ignoreDirectories: [
+                        ".git",
                     ],
-                    options: {
-                        sorters: [
-                            "sorter_mtime",
-                        ],
-                    },
+                },
+                options: {
+                    sorters: [
+                        "sorter_mtime",
+                    ],
                 },
             }],
             kindOptions: {
@@ -164,12 +154,20 @@ export class Config extends BaseConfig {
         args.contextBuilder.patchLocal("mr", {
             sources: [{
                 name: "mr",
+                options: {
+                    converters: ["converter_relativepath"],
+                },
             }],
         })
         args.contextBuilder.patchLocal("source", {
             sources: [{
                 name: "source",
             }],
+        })
+        args.contextBuilder.patchLocal("dpp", {
+            sources: [{
+                name: "dpp",
+            }]
         })
     }
 }

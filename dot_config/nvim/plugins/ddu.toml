@@ -66,11 +66,63 @@ repo = 'matsui54/ddu-source-command_history'
 on_source = 'ddu.vim'
 
 [[plugins]]
+repo = 'kyoh86/ddu-source-git_log'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'kuuote/ddu-source-git_status'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'kuuote/ddu-source-git_diff'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'kyoh86/ddu-source-git_branch'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'peacock0803sz/ddu-source-git_stash'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'Shougo/ddu-source-register'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'flow6852/ddu-source-qf'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'kyoh86/ddu-source-quickfix_history'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = '4513ECHO/ddu-source-colorscheme'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'kamecha/ddu-source-jumplist'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'Shougo/ddu-source-dummy'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'staticWagomU/ddu-source-patch_local'
+on_source = 'ddu.vim'
+
+[[plugins]]
 repo = 'matsui54/ddu-vim-ui-select'
 on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-kind-file'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'Shougo/ddu-kind-word'
 on_source = 'ddu.vim'
 
 [[plugins]]
@@ -83,6 +135,14 @@ on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'uga-rosa/ddu-filter-converter_devicon'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'gamoutatsumi/ddu-filter-converter_relativepath'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'Shougo/ddu-filter-sorter_alpha'
 on_source = 'ddu.vim'
 
 [[plugins]]

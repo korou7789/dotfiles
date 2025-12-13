@@ -1,7 +1,7 @@
 --- lua_add {{{
 local maps = {
     n = {
-        ["<leader>f"] = function() vim.fn["ddu#start"]({ name = "fd" }) end,
+        ["<leader>f"] = function() vim.fn["ddu#start"]({ name = "file_recursive" }) end,
         ["<Leader>g"] = function() vim.fn["ddu#start"]( { name = "grep" } ) end,
         ["<Leader>b"] = function() vim.fn["ddu#start"]( { name = "buffer" } ) end,
         ["<Leader>h"] = function() vim.fn["ddu#start"]( { name = "help" } ) end,
