@@ -169,5 +169,18 @@ export class Config extends BaseConfig {
                 name: "dpp",
             }]
         })
+        args.contextBuilder.patchLocal("fd", {
+            sources: [{
+                name: "file_external",
+                params: {
+                    cmd: ['fd', '.', '-H', '-E', '__pycache__', '-t', 'f'],
+                },
+                options: {
+                    sorters: [
+                        "sorter_mtime",
+                    ],
+                },
+            }],
+        })
     }
 }

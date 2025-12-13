@@ -2,6 +2,7 @@
 local maps = {
     n = {
         ["<leader>f"] = function() vim.fn["ddu#start"]({ name = "file_recursive" }) end,
+        ["<leader>e"] = function() vim.fn["ddu#start"]({ name = "fd" }) end,
         ["<Leader>g"] = function() vim.fn["ddu#start"]( { name = "grep" } ) end,
         ["<Leader>b"] = function() vim.fn["ddu#start"]( { name = "buffer" } ) end,
         ["<Leader>h"] = function() vim.fn["ddu#start"]( { name = "help" } ) end,

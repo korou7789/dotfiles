@@ -2,7 +2,7 @@
 repo = 'nvim-treesitter/nvim-treesitter'
 rev = 'main'
 hook_post_update = 'TSUpdate'
-on_event = ['BufReadPost']
+on_event = ['BufRead', 'BufNewFile']
 lua_source = '''
 require("nvim-treesitter").setup()
 local langs = {
@@ -16,9 +16,9 @@ require("nvim-treesitter").install(langs)
 
 vim.api.nvim_create_autocmd("FileType", {
     pattern = langs,
-    callback = function()
-        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-        vim.treesitter.start()
+    callback = function(args)
+        vim.treesitter.start(args.buf)
+        vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
     end,
 })
 '''
@@ -33,7 +33,7 @@ require("ts-comments").setup()
 
 [[plugins]]
 repo = 'andersevenrud/nvim_context_vt'
-on_event = ['BufNewFile', 'BufReadPost']
+on_event = ['BufRead', 'BufNewFile']
 depends = ['nvim-treesitter']
 lua_source = '''
 require("nvim_context_vt").setup({

@@ -1,7 +1,7 @@
 [[plugins]]
 repo = 'Shougo/ddu.vim'
 depends = ['denops.vim']
-on_event = ['CursorHold']
+on_func = 'ddu#start'
 hooks_file = '$HOOKS_DIR/ddu.lua'
 
 [[plugins]]
