@@ -10,6 +10,9 @@ require("noice").setup({
             enabled = false,
         },
     },
+    messages = {
+        view = "split",
+    },
 })
 
 --- }}}
