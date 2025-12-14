@@ -2,7 +2,7 @@
 repo = 'nvim-treesitter/nvim-treesitter'
 rev = 'main'
 hook_post_update = 'TSUpdate'
-on_event = ['BufRead', 'BufNewFile']
+on_event = ['BufReadPre', 'BufNewFile']
 lua_source = '''
 require("nvim-treesitter").setup()
 local langs = {
@@ -17,16 +17,21 @@ require("nvim-treesitter").install(langs)
 vim.api.nvim_create_autocmd("FileType", {
     pattern = langs,
     callback = function(args)
-        vim.treesitter.start(args.buf)
-        vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        pcall(vim.treesitter.start, args.buf, langs)
     end,
 })
 '''
 
 [[plugins]]
+repo = 'andymass/vim-matchup'
+depends = ["nvim-treesitter"]
+lua_source = '''
+vim.g.matchup_treesitter_enable_quotes = true
+'''
+
+[[plugins]]
 repo = 'folke/ts-comments.nvim'
 on_event = ['BufRead', 'BufNewFile']
-depends = ['nvim-treesitter']
 lua_source = '''
 require("ts-comments").setup()
 '''

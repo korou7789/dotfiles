@@ -26,10 +26,19 @@ require("skkeleton_indicator").setup()
 '''
 on_source = 'skkeleton'
 
+[[plugins]]
+repo = 'NI57721/skkeleton-henkan-highlight'
+on_source = 'skkeleton'
+hook_source = '''
+  highlight SkkeletonHenkan
+  \ gui=underline term=underline cterm=underline
+  highlight SkkeletonHenkanSelect
+  \ gui=underline,reverse term=underline,reverse cterm=underline,reverse
+'''
 
 [[plugins]]
 repo = 'uga-rosa/denippet.vim'
-on_source = ['ddc.vim']
+# on_source = ['ddc.vim']
 # lua_post_source = '''
 # for _, snip in ipairs(vim.fn.globpath(vim.fs.joinpath(vim.fn['dpp#get']('friendly-snippets').path, 'snippets'), '**/*.json', true, true)) do
 #   vim.fn['denippet#load'](snip)
@@ -39,6 +48,19 @@ on_source = ['ddc.vim']
 [[plugins]]
 repo = 'rafamadriz/friendly-snippets'
 on_source = ['denippet.vim']
+
+
+[[plugins]]
+repo = 'matsui54/denops-signature_help'
+depends = 'denops.vim'
+on_event = 'LspAttach'
+lua_source = '''
+vim.fn["signature_help#enable"]()
+vim.g.signature_help_config = {
+    contentsStyle = "labels",
+    viewStyle = "floating"
+}
+'''
 
 
 [[plugins]]
