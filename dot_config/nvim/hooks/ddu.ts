@@ -1,8 +1,7 @@
 import {
     BaseConfig,
     type ConfigArguments,
-} from "jsr:@shougo/ddu-vim@~9.4.0/config";
-import type { Denops } from "jsr:@denops/std";
+} from "jsr:@shougo/ddu-vim@11.1.0/config";
 
 export class Config extends BaseConfig {
     override config(args: ConfigArguments) {
@@ -66,7 +65,6 @@ export class Config extends BaseConfig {
             },
             filterParams: {
                 matcher_fzf: {
-                    highlightMatched: "Search",
                 },
             },
             sourceParams: {
@@ -108,6 +106,7 @@ export class Config extends BaseConfig {
                 options: {
                     sorters: [
                         "sorter_mtime",
+                        "sorter_fzf",
                     ],
                 },
             }],
@@ -173,7 +172,7 @@ export class Config extends BaseConfig {
             sources: [{
                 name: "file_external",
                 params: {
-                    cmd: ['fd', '.', '-H', '-E', '__pycache__', '-t', 'f'],
+                    cmd: ['fd', '.', '-H', '-E', '.git', '-t', 'f'],
                 },
                 options: {
                     sorters: [
