@@ -1,4 +1,5 @@
 " hook_add {{{
+nnoremap <leader><leader> <Cmd>call ddu#start(#{sources:[#{name:'source'}]})<CR>
 nnoremap <leader>f <Cmd>call ddu#start(#{sources:[#{name:'file_rec'}]})<CR>
 nnoremap <leader>b <Cmd>call ddu#start(#{sources:[#{name:'buffer'}]})<CR>
 nnoremap <leader>g <Cmd>call ddu#start(#{
@@ -19,6 +20,13 @@ function s:ddu_ff_config() abort
     nnoremap <buffer> q <Cmd>call ddu#ui#do_action('quit')<CR>
     nnoremap <buffer> i <Cmd>call ddu#ui#do_action('openFilterWindow')<CR>
     nnoremap <buffer> a <Cmd>call ddu#ui#do_action('chooseAction')<CR>
+    nnoremap <buffer> s <Cmd>call ddu#ui#do_action(
+                \ 'itemAction', #{
+                \   name: 'open',
+                \   params: #{
+                \     command: 'split'
+                \   }
+                \ })<CR>
 endfunction
 autocmd FileType ddu-ff call s:ddu_ff_config()
 

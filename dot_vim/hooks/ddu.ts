@@ -32,6 +32,12 @@ export class Config extends BaseConfig {
                 file: {
                     defaultAction: "open",
                 },
+                ddt_tab: {
+                    defaultAction: "switch",
+                },
+                source: {
+                    defaultAction: "execute",
+                }
             },
             actionOptions: {
                 narrow: {

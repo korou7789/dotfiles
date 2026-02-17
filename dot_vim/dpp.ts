@@ -56,6 +56,7 @@ export class Config extends BaseConfig {
         { name: "colorscheme.toml", lazy: false },
         { name: "ddu.toml", lazy: true },
         { name: "ddc.toml", lazy: true },
+        { name: "ddt.toml", lazy: true },
         { name: "lazy.toml", lazy: true },
       ].map((tomlFile) =>
         action.callback({

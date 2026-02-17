@@ -19,15 +19,26 @@ hook_source = 'runtime macros/sandwich/keymap/surround.vim'
 
 [[plugins]]
 repo = 'rhysd/clever-f.vim'
-on_map = '<Plug>(clever-f-'
+on_map = ['f', 'F', 't', 'T']
+hook_add = '''
+let g:clever_f_smart_case = 1
+'''
 
 [[plugins]]
 repo = 'https://github.com/kana/vim-textobj-user'
-on_source = 'VimEnter'
+on_event = 'VimEnter'
+
+[[plugins]]
+repo = 'kana/vim-operator-user'
+on_event = 'VimEnter'
 
 [[plugins]]
 repo = 'kana/vim-operator-replace'
-on_source = 'vim-textobj-user'
+depends = 'vim-operator-user'
+on_map = '<Plug>(operator-replace)'
+hook_add = '''
+map _ <Plug>(operator-replace)
+'''
 
 [[plugins]]
 repo = 'mattn/vim-molder'
@@ -36,3 +47,11 @@ on_event = 'VimEnter'
 [[plugins]]
 repo = 'mattn/vim-molder-oil'
 on_source = 'vim-molder'
+
+[[plugins]]
+repo = 'lambdalisue/vim-gin'
+on_cmd = 'Gin'
+
+[[plugins]]
+repo = 'lambdalisue/vim-guise'
+on_event = 'VimEnter'
