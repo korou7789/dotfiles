@@ -1,11 +1,17 @@
 [[plugins]]
 repo = 'Shougo/ddc.vim'
-on_event = 'InsertEnter'
+on_event = ['InsertEnter', 'CmdlineEnter']
 depends = ['denops.vim']
 hooks_file = '$HOOKS_DIR/ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/pum.vim'
+hook_source = '''
+call pum#set_option(#{
+ \ max_height: 10,
+ \ max_width: 70,
+ \})
+'''
 
 [[plugins]]
 repo = 'Shougo/ddc-ui-pum'
@@ -18,6 +24,14 @@ on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'LumaKernel/ddc-source-file'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-cmdline'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'matsui54/ddc-source-buffer'
 on_source = 'ddc.vim'
 
 [[plugins]]

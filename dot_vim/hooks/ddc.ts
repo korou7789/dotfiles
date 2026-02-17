@@ -12,6 +12,15 @@ export class Config extends BaseConfig {
                 "around",
                 "file",
             ],
+            autoCompleteEvents: [
+                "CmdlineChanged",
+                "InsertEnter",
+                "TextChangedI",
+                "TextChangedP",
+            ],
+            cmdlineSources: {
+                ":": ["cmdline"],
+            },
             sourceOptions: {
                 _: {
                     ignoreCase: true,
@@ -23,6 +32,10 @@ export class Config extends BaseConfig {
                     mark: "FILE",
                     isVolatile: true,
                     forceCompletionPattern: String.raw`\S/\S*`,
+                },
+                cmdline: {
+                    isVolatile: true,
+                    forceCompletionPattern: String.raw`\S/\S*|\.\w*`,
                 },
 	    }
         });

@@ -17,7 +17,27 @@ repo = 'Shougo/ddu-source-file_rec'
 on_source = 'ddu.vim'
 
 [[plugins]]
+repo = 'matsui54/ddu-source-file_external'
+on_source = 'ddu.vim'
+
+[[plugins]]
 repo = 'shun/ddu-source-buffer'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'shun/ddu-source-rg'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'kuuote/ddu-source-git_status'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'kyoh86/ddu-source-git_log'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'Shougo/ddu-source-action'
 on_source = 'ddu.vim'
 
 [[plugins]]

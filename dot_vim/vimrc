@@ -43,10 +43,16 @@ command! DppInstall   call dpp#async_ext_action('installer', 'install')
 command! DppUpdate    call dpp#async_ext_action('installer', 'update')
 command! DppMakeState call dpp#make_state()
 
-colorscheme darkblue
+packadd comment
+packadd matchit
+
+colorscheme accent
 
 set noswapfile
 set nobackup
+
+set expandtab
+set shiftwidth=4
 
 nnoremap j gj
 nnoremap k gk
