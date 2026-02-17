@@ -1,5 +1,0 @@
-{
-  "imports": {
-    "@shougo/ddu-vim": "jsr:@shougo/ddu-vim@^11.1.0"
-  }
-}

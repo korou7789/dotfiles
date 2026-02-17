@@ -1,0 +1,20 @@
+[[plugins]]
+repo = 'haya14busa/vim-edgemotion'
+on_map = '<Plug>(edgemotion-'
+hook_add = '''
+nnoremap <C-j> <Plug>(edgemotion-j)
+nnoremap <C-k> <Plug>(edgemotion-k)
+vnoremap <C-j> <Plug>(edgemotion-j)
+vnoremap <C-k> <Plug>(edgemotion-k)
+'''
+
+[[plugins]]
+repo = 'cohama/lexima.vim'
+on_event = 'InsertEnter'
+
+[[plugins]]
+repo = 'machakann/vim-sandwich'
+on_event = 'VimEnter'
+on_source = 'runtime macros/sandwich/keymap/surround.vim'
+
+

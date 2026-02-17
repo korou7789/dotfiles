@@ -1,0 +1,25 @@
+[[plugins]]
+repo = 'Shougo/ddc.vim'
+on_event = 'InsertEnter'
+depends = ['denops.vim']
+hooks_file = '$HOOKS_DIR/ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/pum.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-ui-pum'
+depends = 'pum.vim'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-around'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'LumaKernel/ddc-source-file'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'tani/ddc-fuzzy'
+on_source = 'ddc.vim'
