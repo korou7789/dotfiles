@@ -48,6 +48,8 @@ packadd matchit
 
 colorscheme accent
 
+set timeout ttimeout ttimeoutlen=10 timeoutlen=1000
+
 set noswapfile
 set nobackup
 
@@ -57,6 +59,7 @@ set cmdheight=2
 set expandtab
 set shiftwidth=4
 set tabstop=4
+set softtabstop=4
 set autoindent
 set smartindent
 set smarttab
@@ -65,5 +68,19 @@ set incsearch
 set ignorecase
 set smartcase
 
+set hidden
+
+set backspace=indent,eol,start
+
 nnoremap j gj
 nnoremap k gk
+
+nnoremap Y y$
+
+nnoremap ]q <Cmd>cnext<CR>zz
+nnoremap [q <Cmd>cprevious<CR>zz
+
+autocmd User QuickFixCmdPost cwindow
+
+set keywordprg=:help
+autocmd FileType help nnoremap <buffer> q <Cmd>close<CR>

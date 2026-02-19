@@ -12,12 +12,14 @@ export class Config extends BaseConfig {
                     autoAction: {
                         name: 'preview'
                     },
-                    previewSplit: "no",
+                    sync: false,
+                    previewSplit: "vertical",
                 },
                 filer: {
                     autoAction: {
                         name: 'preview'
                     },
+                    sortTreesFirst: true,
                     previewSplit: "no",
                     toggle: true,
                 },
