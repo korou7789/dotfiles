@@ -9,8 +9,17 @@ export class Config extends BaseConfig {
             ui: "ff",
             uiParams: {
                 ff: {
+                    autoAction: {
+                        name: 'preview'
+                    },
+                    previewSplit: "no",
                 },
                 filer: {
+                    autoAction: {
+                        name: 'preview'
+                    },
+                    previewSplit: "no",
+                    toggle: true,
                 },
             },
             sourceOptions: {
@@ -18,6 +27,7 @@ export class Config extends BaseConfig {
                     ignoreCase: true,
                     smartCase: true,
 		    matchers: ["matcher_substring"],
+                    columns: ['filename'],
                 },
                 file: {
                 },
