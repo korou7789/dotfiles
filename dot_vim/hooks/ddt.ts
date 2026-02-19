@@ -8,6 +8,7 @@ export class Config extends BaseConfig {
         args.contextBuilder.patchGlobal({
             uiParams: {
                 terminal: {
+                    split: "vertical",
                     command: ["bash"],
                     promptPattern: "\\w*% \\?",
                 },

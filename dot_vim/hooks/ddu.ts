@@ -27,9 +27,9 @@ export class Config extends BaseConfig {
                     ignoreCase: true,
                     smartCase: true,
 		    matchers: ["matcher_substring"],
-                    columns: ['filename'],
                 },
                 file: {
+                    columns: ['filename'],
                 },
                 file_rec: {
                     sorters: ["sorter_mtime"],

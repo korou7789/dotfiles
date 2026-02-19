@@ -19,6 +19,10 @@ import type {
   Ext as TomlExt,
   Params as TomlParams,
 } from "jsr:@shougo/dpp-ext-toml@2.0.1";
+import type {
+  Ext as LocalExt,
+  Params as LocalParams,
+} from "jsr:@shougo/dpp-ext-local@2.0.0";
 import type { Denops } from "jsr:@denops/std@8.2.0";
 
 export class Config extends BaseConfig {
@@ -35,7 +39,10 @@ export class Config extends BaseConfig {
     const [context, options] = await args.contextBuilder.get(args.denops);
     const tomlFilesDir = "~/.vim/toml/";
 
-    const protocols = (await args.denops.dispatcher.getProtocols()) as Record<string, Protocol>;
+    const protocols = (await args.denops.dispatcher.getProtocols()) as Record<
+      string,
+      Protocol
+    >;
 
     const recordPlugins: Record<string, Plugin> = {};
     const ftplugins: Record<string, string> = {};
@@ -46,7 +53,7 @@ export class Config extends BaseConfig {
       ExtOptions,
       TomlParams,
     ] = await args.denops.dispatcher.getExt(
-      "toml"
+      "toml",
     ) as [TomlExt | undefined, ExtOptions, TomlParams];
     if (tomlExt) {
       const action = tomlExt.actions.load;
@@ -72,7 +79,7 @@ export class Config extends BaseConfig {
               lazy: tomlFile.lazy,
             },
           },
-        }),
+        })
       );
       const tomls = await Promise.all(tomlFiles);
       for (const toml of tomls) {
@@ -83,11 +90,49 @@ export class Config extends BaseConfig {
           hooksFiles.push(toml.hooks_file);
         }
         if (toml.ftplugins) {
-            mergeFtplugins(ftplugins, toml.ftplugins);
+          mergeFtplugins(ftplugins, toml.ftplugins);
         }
       }
     }
-    
+
+    const [localExt, localOptions, localParams]: [
+      LocalExt | undefined,
+      ExtOptions,
+      LocalParams,
+    ] = await args.denops.dispatcher.getExt(
+      "local",
+    ) as [LocalExt | undefined, ExtOptions, LocalParams];
+    if (localExt) {
+      const action = localExt.actions.local;
+
+      const localPlugins = await action.callback({
+        denops: args.denops,
+        context,
+        options,
+        protocols,
+        extOptions: localOptions,
+        extParams: localParams,
+        actionParams: {
+          directory: "~/work",
+          options: {
+            frozen: true,
+            merged: false,
+          },
+        },
+      });
+
+      for (const plugin of localPlugins) {
+        if (plugin.name in recordPlugins) {
+          recordPlugins[plugin.name] = Object.assign(
+            recordPlugins[plugin.name],
+            plugin,
+          );
+        } else {
+          recordPlugins[plugin.name] = plugin;
+        }
+      }
+    }
+
     const [lazyExt, lazyOptions, lazyParams]: [
       LazyExt | undefined,
       ExtOptions,
@@ -111,7 +156,7 @@ export class Config extends BaseConfig {
         actionParams: { plugins: Object.values(recordPlugins) },
       });
     }
-    
+
     return {
       ftplugins,
       hooksFiles,

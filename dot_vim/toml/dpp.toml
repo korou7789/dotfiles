@@ -15,3 +15,6 @@ repo = 'Shougo/dpp-ext-toml'
 
 [[plugins]]
 repo = 'Shougo/dpp-ext-lazy'
+
+[[plugins]]
+repo = 'Shougo/dpp-ext-local'
