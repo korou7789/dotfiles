@@ -16,11 +16,12 @@ nnoremap [ddu]b
             \ <Cmd>call ddu#start(#{sources:[#{name:'buffer'}]})<CR>
 nnoremap [ddu]g
             \ <Cmd>call ddu#start(#{
-            \ sources:[#{
+            \ sources: [#{
             \   name: 'rg',
             \   options: #{
             \     matchers: [],
             \     volatile: v:true,
+            \   }
             \   }]
             \ })<CR>
 nnoremap [ddu]gs

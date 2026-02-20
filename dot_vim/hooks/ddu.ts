@@ -52,7 +52,10 @@ export class Config extends BaseConfig {
                 },
                 source: {
                     defaultAction: "execute",
-                }
+                },
+                help: {
+                    defaultAction: "open",
+                },
             },
             actionOptions: {
                 narrow: {
