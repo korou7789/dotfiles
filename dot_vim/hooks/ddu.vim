@@ -102,7 +102,7 @@ function! s:ddu_filer_config()
                 \ <Cmd>call ddu#ui#do_action('previewExecute', #{
                 \   command: 'execute "normal! \<C-d>"'
                 \ })<CR>
-    nnoremap <buffer> A
+    nnoremap <buffer> a
                 \ <Cmd>call ddu#ui#do_action('chooseAction')<CR>
     nnoremap <buffer> s
                 \ <Cmd>call ddu#ui#do_action('itemAction', #{

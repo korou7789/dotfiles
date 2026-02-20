@@ -57,5 +57,13 @@ repo = 'lambdalisue/vim-guise'
 on_event = 'VimEnter'
 
 [[plugins]]
+repo = 'tani/dmacro.nvim'
+on_map = '<Plug>(dmacro-play-macro)'
+hook_add = '''
+inoremap <F1> <Plug>(dmacro-play-macro)
+nnoremap <F1> <Plug>(dmacro-play-macro)
+'''
+
+[[plugins]]
 repo = '~/work/linepeek.vim'
 on_event = 'VimEnter'

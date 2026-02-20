@@ -36,6 +36,9 @@ export class Config extends BaseConfig {
                 file_rec: {
                     sorters: ["sorter_mtime"],
                 },
+                file_external: {
+                    sorters: ["sorter_mtime"],
+                }
             },
             kindOptions: {
                 action: {
