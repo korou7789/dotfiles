@@ -46,6 +46,8 @@ command! DppMakeState call dpp#make_state()
 packadd comment
 packadd matchit
 
+set termguicolors
+
 colorscheme accent
 
 set timeout ttimeout ttimeoutlen=10 timeoutlen=1000
@@ -59,12 +61,12 @@ set cmdheight=2
 set expandtab
 set shiftwidth=4
 set tabstop=4
-set softtabstop=4
 set autoindent
 set smartindent
 set smarttab
 
 set incsearch
+set hlsearch
 set ignorecase
 set smartcase
 
@@ -76,6 +78,8 @@ nnoremap j gj
 nnoremap k gk
 
 nnoremap Y y$
+
+nnoremap <ESC><ESC> <Cmd>nohlsearch<CR>
 
 nnoremap ]q <Cmd>cnext<CR>zz
 nnoremap [q <Cmd>cprevious<CR>zz
