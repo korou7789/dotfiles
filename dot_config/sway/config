@@ -132,5 +132,6 @@ bar {
 }
 
 exec mako
+exec fcitx5 -d
 
 include /etc/sway/config.d/*
