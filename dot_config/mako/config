@@ -1,14 +1,14 @@
-font=M PLUS 1 Code 11
-background-color=#222526ff
-text-color=#dde1dfff
-border-color=#363c39ff
-progress-color=over #363c39ff
+font=M PLUS 1 Code 12
+background-color=#252428ff
+text-color=#f2f0f8ff
+border-color=#39383fff
+progress-color=over #5f5a6fff
 width=340
 height=160
 anchor=top-right
 outer-margin=16
 margin=8
-padding=20
+padding=16
 border-size=1
 border-radius=0
 icons=0
@@ -16,5 +16,5 @@ max-visible=3
 default-timeout=6000
 
 [urgency=critical]
-border-color=#a7b9aaff
+border-color=#b89cffff
 default-timeout=0

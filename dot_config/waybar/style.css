@@ -1,13 +1,13 @@
-@define-color bg #191b1c;
-@define-color surface #222526;
-@define-color text #dde1df;
-@define-color muted #8d9691;
-@define-color edge #363c39;
-@define-color accent #a7b9aa;
+@define-color bg #131215;
+@define-color surface #252428;
+@define-color text #f2f0f8;
+@define-color muted #b6aad9;
+@define-color edge #39383f;
+@define-color accent #b89cff;
 
 * {
     font-family: "M PLUS 1 Code";
-    font-size: 11pt;
+    font-size: 16px;
     font-weight: 400;
     min-height: 0;
     border: none;
@@ -21,20 +21,22 @@ window#waybar {
     color: @muted;
 }
 
-.modules-left { margin-left: 16px; }
+/* Workspace margin adds 2px; status padding adds 4px. */
+.modules-left { margin-left: 22px; }
 .modules-right { margin-right: 20px; }
 
 #workspaces button {
-    padding: 0 12px;
-    margin: 4px 0;
+    min-width: 24px;
+    min-height: 24px;
+    padding: 0;
+    margin: 4px 2px;
     background: transparent;
     color: @muted;
-    border-bottom: 1px solid transparent;
 }
 
 #workspaces button.focused {
-    color: @text;
-    border-bottom-color: @accent;
+    background: @surface;
+    color: @accent;
 }
 
 #workspaces button:hover {
