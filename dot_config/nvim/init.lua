@@ -1,6 +1,2 @@
-vim.loader.enable()
-
-require("config.options")
-require("config.dpp")
-require("lsp")
-require("config.keymaps")
+vim.keymap.set("n", "j", "gj")
+vim.keymap.set("n", "k", "gk")

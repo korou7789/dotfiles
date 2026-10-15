@@ -1,5 +1,0 @@
-[[plugins]]
-repo = 'Alligator/accent.vim'
-
-[[plugins]]
-repo = 'cocopon/iceberg.vim'
