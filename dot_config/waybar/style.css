@@ -1,0 +1,67 @@
+@define-color bg #191b1c;
+@define-color surface #222526;
+@define-color text #dde1df;
+@define-color muted #8d9691;
+@define-color edge #363c39;
+@define-color accent #a7b9aa;
+
+* {
+    font-family: "M PLUS 1 Code";
+    font-size: 11pt;
+    font-weight: 400;
+    min-height: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+window#waybar {
+    background: @bg;
+    color: @muted;
+}
+
+.modules-left { margin-left: 16px; }
+.modules-right { margin-right: 20px; }
+
+#workspaces button {
+    padding: 0 12px;
+    margin: 4px 0;
+    background: transparent;
+    color: @muted;
+    border-bottom: 1px solid transparent;
+}
+
+#workspaces button.focused {
+    color: @text;
+    border-bottom-color: @accent;
+}
+
+#workspaces button:hover {
+    background: @surface;
+}
+
+#workspaces button.urgent {
+    background: @accent;
+    color: @bg;
+}
+
+#clock { color: @text; }
+#network, #battery { padding: 0 4px; }
+#network.disconnected { color: @muted; }
+#battery.charging, #battery.plugged { color: @accent; }
+
+#battery.critical:not(.charging):not(.plugged) {
+    color: @bg;
+    background: @accent;
+    padding: 0 8px;
+    margin: 4px 0;
+}
+
+tooltip {
+    background: @surface;
+    color: @text;
+    border: 1px solid @edge;
+}
+
+tooltip label { padding: 8px 12px; }

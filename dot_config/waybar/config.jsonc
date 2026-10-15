@@ -1,0 +1,39 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 32,
+    "spacing": 16,
+    "modules-left": ["sway/workspaces"],
+    "modules-center": ["clock"],
+    "modules-right": ["network", "battery"],
+    "sway/workspaces": {
+        "format": "{name}",
+        "disable-scroll": true,
+        "tooltip": false
+    },
+    "clock": {
+        "format": "{:%m/%d  %H:%M}",
+        "interval": 60,
+        "tooltip": false
+    },
+    "network": {
+        "format-wifi": "Wi-Fi",
+        "format-ethernet": "LAN",
+        "format-linked": "接続待ち",
+        "format-disconnected": "オフライン",
+        "format-disabled": "オフライン",
+        "tooltip-format-wifi": "{essid} · {signalStrength}%",
+        "tooltip-format-ethernet": "{ifname} · {ipaddr}",
+        "tooltip-format-disconnected": "ネットワーク未接続"
+    },
+    "battery": {
+        "format": "{capacity}%",
+        "format-charging": "+ {capacity}%",
+        "format-plugged": "AC {capacity}%",
+        "format-full": "100%",
+        "format-critical": "残量 {capacity}%",
+        "interval": 30,
+        "states": {"critical": 15},
+        "tooltip-format": "{timeTo}"
+    }
+}
