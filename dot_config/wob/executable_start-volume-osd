@@ -1,0 +1,14 @@
+#!/bin/sh
+set -eu
+
+runtime=${XDG_RUNTIME_DIR:?}/wob-volume-${WAYLAND_DISPLAY:?}
+exec 9>"$runtime.lock"
+flock -n 9 || exit 0
+
+if [ ! -p "$runtime.fifo" ]; then
+    mkfifo -m 600 "$runtime.fifo"
+fi
+
+# Keep the FIFO open between key presses without a separate tail process.
+exec 3<>"$runtime.fifo"
+exec wob <&3

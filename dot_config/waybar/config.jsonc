@@ -11,6 +11,7 @@
     ],
     "modules-right": [
         "tray",
+        "wireplumber",
         "network",
         "battery"
     ],
@@ -28,6 +29,14 @@
         "format": "{:%m/%d  %H:%M}",
         "interval": 60,
         "tooltip": false
+    },
+    "wireplumber": {
+        "format": "<span rise=\"-4096\" font_desc=\"Material Symbols Outlined 15\"></span> {volume}%",
+        "format-muted": "<span rise=\"-4096\" font_desc=\"Material Symbols Outlined 15\"></span>",
+        "tooltip-format": "音量 {volume}% · {node_name}",
+        "on-click": "~/.config/wob/volume mute",
+        "on-scroll-up": "true",
+        "on-scroll-down": "true"
     },
     "network": {
         "format-wifi": "<span rise=\"-4096\" font_desc=\"Material Symbols Outlined 15\"></span>",

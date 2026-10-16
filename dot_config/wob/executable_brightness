@@ -1,0 +1,21 @@
+#!/bin/sh
+set -eu
+export LC_ALL=C
+
+runtime=${XDG_RUNTIME_DIR:?}/wob-volume-${WAYLAND_DISPLAY:?}
+exec 9>"$runtime.control.lock"
+flock 9
+
+case ${1:-} in
+    up) step=5%+ ;;
+    down) step=5%- ;;
+    *) exit 2 ;;
+esac
+
+state=$(brightnessctl --class=backlight --min-value=1 --machine-readable set "$step")
+value=$(printf '%s\n' "$state" | awk -F, 'NR == 1 { gsub(/%/, "", $4); print $4 }')
+
+# Brightness keys must still work if the OSD is not running.
+if [ -p "$runtime.fifo" ]; then
+    timeout 0.2 sh -c 'printf "%s\n" "$1" > "$2"' sh "$value" "$runtime.fifo" || :
+fi
