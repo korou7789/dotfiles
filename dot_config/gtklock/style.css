@@ -1,0 +1,45 @@
+@define-color bg #131215;
+@define-color surface #252428;
+@define-color text #f2f0f8;
+@define-color muted #b6aad9;
+@define-color edge #39383f;
+@define-color focus #756780;
+@define-color accent #b89cff;
+
+* {
+    font-family: "M PLUS 1 Code";
+    font-size: 16px;
+    font-weight: 400;
+    border-radius: 0;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+window {
+    background-image: none;
+    background-color: @bg;
+    color: @text;
+}
+
+#window-box { padding: 32px; }
+#time-box { margin-bottom: 24px; }
+#clock-label { font-size: 40px; font-weight: 300; }
+#date-label { margin-top: 8px; color: @muted; }
+#input-label { margin-right: 16px; color: @muted; }
+
+entry, button {
+    background-image: none;
+    background-color: @surface;
+    color: @text;
+    border: 1px solid @edge;
+    outline-style: none;
+    min-height: 24px;
+}
+
+entry { padding: 12px 16px; caret-color: @text; }
+entry:focus, button:focus { border-color: @focus; }
+entry selection { background-color: @focus; color: @text; }
+button { padding: 8px 16px; }
+button:hover { background-color: @edge; }
+#unlock-button { margin-top: 16px; }
+#warning-label, #error-label { color: @accent; }
