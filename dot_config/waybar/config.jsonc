@@ -3,9 +3,22 @@
     "position": "top",
     "height": 32,
     "spacing": 16,
-    "modules-left": ["sway/workspaces"],
-    "modules-center": ["clock"],
-    "modules-right": ["network", "battery"],
+    "modules-left": [
+        "sway/workspaces"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "tray",
+        "network",
+        "battery"
+    ],
+    "tray": {
+        "icon-size": 16,
+        "spacing": 12,
+        "show-passive-items": true
+    },
     "sway/workspaces": {
         "format": "{name}",
         "disable-scroll": true,
@@ -17,23 +30,32 @@
         "tooltip": false
     },
     "network": {
-        "format-wifi": "Wi-Fi",
-        "format-ethernet": "LAN",
-        "format-linked": "接続待ち",
-        "format-disconnected": "オフライン",
-        "format-disabled": "オフライン",
+        "format-wifi": "<span rise=\"-4096\" font_desc=\"Material Symbols Outlined 15\"></span>",
+        "format-ethernet": "<span rise=\"-4096\" font_desc=\"Material Symbols Outlined 15\"></span>",
+        "format-linked": "<span rise=\"-4096\" font_desc=\"Material Symbols Outlined 15\"></span>",
+        "format-disconnected": "<span rise=\"-4096\" font_desc=\"Material Symbols Outlined 15\"></span>",
+        "format-disabled": "<span rise=\"-4096\" font_desc=\"Material Symbols Outlined 15\"></span>",
         "tooltip-format-wifi": "{essid} · {signalStrength}%",
         "tooltip-format-ethernet": "{ifname} · {ipaddr}",
         "tooltip-format-disconnected": "ネットワーク未接続"
     },
     "battery": {
-        "format": "{capacity}%",
-        "format-charging": "+ {capacity}%",
-        "format-plugged": "AC {capacity}%",
-        "format-full": "100%",
-        "format-critical": "残量 {capacity}%",
+        "format": "{icon} {capacity}%",
+        "format-charging": "<span rise=\"-4096\" font_desc=\"Material Symbols Outlined 15\"></span> {capacity}%",
+        "format-plugged": "<span rise=\"-4096\" font_desc=\"Material Symbols Outlined 15\"></span> {capacity}%",
+        "format-full": "<span rise=\"-4096\" font_desc=\"Material Symbols Outlined 15\"></span> {capacity}%",
+        "format-critical": "<span rise=\"-4096\" font_desc=\"Material Symbols Outlined 15\"></span> {capacity}%",
         "interval": 30,
-        "states": {"critical": 15},
-        "tooltip-format": "{timeTo}"
+        "states": {
+            "critical": 15
+        },
+        "tooltip-format": "{timeTo}",
+        "format-icons": [
+            "<span rise=\"-4096\" font_desc=\"Material Symbols Outlined 15\"></span>",
+            "<span rise=\"-4096\" font_desc=\"Material Symbols Outlined 15\"></span>",
+            "<span rise=\"-4096\" font_desc=\"Material Symbols Outlined 15\"></span>",
+            "<span rise=\"-4096\" font_desc=\"Material Symbols Outlined 15\"></span>",
+            "<span rise=\"-4096\" font_desc=\"Material Symbols Outlined 15\"></span>"
+        ]
     }
 }

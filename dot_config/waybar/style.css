@@ -49,7 +49,7 @@ window#waybar {
 }
 
 #clock { color: @text; }
-#network, #battery { padding: 0 4px; }
+#tray, #network, #battery { padding: 0 4px; }
 #network.disconnected { color: @muted; }
 #battery.charging, #battery.plugged { color: @accent; }
 
