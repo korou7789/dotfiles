@@ -49,8 +49,9 @@ window#waybar {
 }
 
 #clock { color: @text; }
-#tray, #wireplumber, #network, #battery { padding: 0 4px; }
+#tray, #wireplumber, #bluetooth, #network, #battery { padding: 0 4px; }
 #network.disconnected { color: @muted; }
+#bluetooth.connected { color: @accent; }
 #battery.charging, #battery.plugged { color: @accent; }
 
 #battery.critical:not(.charging):not(.plugged) {
