@@ -1,0 +1,25 @@
+[[plugins]]
+repo = 'Shougo/goda.vim'
+
+[[plugins]]
+repo = 'Shougo/goda-pm.vim'
+hook_post_update = 'call goda_pm#build()'
+
+[[plugins]]
+repo = 'Shougo/goda-fi.vim'
+hook_post_update = 'call goda_fi#build()'
+
+[[plugins]]
+repo = 'Shougo/goda-cmp.vim'
+hook_post_update = 'call goda_cmp#build()'
+
+[[plugins]]
+repo = 'Shougo/pum.vim'
+
+[[plugins]]
+repo = 'Shougo/goda-skk.vim'
+hook_post_update = 'call goda_skk#build()'
+
+[[plugins]]
+repo = 'Shougo/goda-term.vim'
+hook_post_update = 'call goda_term#build()'

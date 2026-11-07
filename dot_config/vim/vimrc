@@ -1,0 +1,78 @@
+vim9script
+
+set runtimepath^=~/.cache/goda-pm/repos/github.com/Shougo/goda-pm.vim
+
+const config_dir = expand('<script>:h')
+
+g:goda_pm#config_dir = config_dir .. '/goda/pm'
+
+$BASE_DIR = config_dir
+
+const goda_base = expand('~/.cache/goda-pm')
+
+if goda_pm#min#load_state(goda_base)
+    set runtimepath^=~/.cache/goda-pm/repos/github.com/Shougo/goda.vim
+    autocmd VimEnter * ++once call goda_pm#make_state(goda_base)
+endif
+
+autocmd User GodaPm:makeStatePost echomsg 'goda-pm: state generated. Restart Vim.'
+
+
+command! PackInstall call goda_pm#async_ext_action('installer', 'install')
+command! PackUpdate  call goda_pm#async_ext_action('installer', 'update')
+command! PackState   call goda_pm#make_state_sync()
+
+
+filetype indent plugin on
+syntax on
+
+set ttimeoutlen=50
+set shiftwidth=4
+set softtabstop=-1
+set incsearch
+set ignorecase
+set smartcase
+
+g:mapleader = ' '
+
+g:goda_fi#config_dir = config_dir .. '/goda/fi'
+nnoremap <leader>f <Cmd>call goda_fi#start(#{name: 'files'})<CR>
+nnoremap <leader>F <Cmd>call goda_fi#start(#{name: 'filer', ui: 'filer', sources: ['file']})<CR>
+
+autocmd FileType goda-fi-filer {
+    nnoremap <buffer> q <Cmd>call goda_fi#ui#do_action('quit')<CR>
+    nnoremap <buffer> <CR> <Cmd>call goda_fi#ui#do_action('itemAction', #{name: 'open'})<CR>
+    nnoremap <buffer> i <Cmd>call goda_fi#ui#do_action('openFilterWindow')<CR>
+    nnoremap <buffer> o <Cmd>call goda_fi#ui#do_action('expandItem', #{mode: 'toggle'})<CR>
+    nnoremap <buffer> h <Cmd>call goda_fi#ui#do_action('itemAction', #{name: 'narrow', params: #{path: '..'}})<CR>
+    nnoremap <buffer> l <Cmd>call goda_fi#ui#do_action('itemAction', #{name: 'narrow'})<CR>
+    nnoremap <buffer> n <Cmd>call goda_fi#ui#do_action('itemAction', #{name: 'newFile'})<CR>
+    nnoremap <buffer> N <Cmd>call goda_fi#ui#do_action('itemAction', #{name: 'newDirectory'})<CR>
+    nnoremap <buffer> r <Cmd>call goda_fi#ui#do_action('itemAction', #{name: 'rename'})<CR>
+    nnoremap <buffer> a <Cmd>call goda_fi#ui#do_action('chooseAction')<CR>
+}
+
+autocmd FileType goda-fi-ff {
+    nnoremap <buffer> q <Cmd>call goda_fi#ui#do_action('quit')<CR>
+    nnoremap <buffer> <CR> <Cmd>call goda_fi#ui#do_action('itemAction')<CR>
+    nnoremap <buffer> i <Cmd>call goda_fi#ui#do_action('openFilterWindow')<CR>
+    nnoremap <buffer> p <Cmd>call goda_fi#ui#do_action('preview')<CR>
+    nnoremap <buffer> a <Cmd>call goda_fi#ui#do_action('chooseAction')<CR>
+}
+
+g:goda_cmp#config_dir = config_dir .. '/goda/cmp'
+autocmd VimEnter * call goda_cmp#enable()
+inoremap <C-n> <Cmd>call pum#map#insert_relative(+1)<CR>
+inoremap <C-p> <Cmd>call pum#map#insert_relative(-1)<CR>
+inoremap <C-y> <Cmd>call pum#map#confirm()<CR>
+inoremap <C-e> <Cmd>call pum#map#cancel()<CR>
+
+g:goda_skk#config_dir = config_dir .. '/goda/skk'
+map! <C-j> <Plug>(goda-skk-enable)
+
+g:goda_term#config_dir = config_dir .. '/goda/term'
+nnoremap <Leader>t <Cmd>call goda_term#start(#{name: 'shell', ui: 'shell'})<CR>
+autocmd FileType goda-term-shell {
+    inoremap <buffer> <CR> <Esc><Cmd>call goda_term#ui#do_action('executeLine')<CR>
+    nnoremap <buffer> <CR> <Cmd>call goda_term#ui#do_action('executeLine')<CR>
+}
