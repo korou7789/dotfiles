@@ -28,6 +28,7 @@ func config(ctx context.Context, c *pm.ConfigArgs) (*pm.ConfigReturn, error) {
         return nil, err
     }
     return &pm.ConfigReturn{
-        Plugins: state.Plugins,
+        Plugins: t.Plugins,
+	CheckFiles: []string{expanded},
     }, nil
 }
