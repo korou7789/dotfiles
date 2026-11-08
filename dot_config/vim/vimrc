@@ -62,10 +62,29 @@ autocmd FileType goda-fi-ff {
 
 g:goda_cmp#config_dir = config_dir .. '/goda/cmp'
 autocmd VimEnter * call goda_cmp#enable()
-inoremap <C-n> <Cmd>call pum#map#insert_relative(+1)<CR>
-inoremap <C-p> <Cmd>call pum#map#insert_relative(-1)<CR>
+inoremap <expr> <C-n>
+      \ pum#visible()
+      \ ? '<Cmd>call pum#map#insert_relative(+1)<CR>'
+      \ : goda_cmp#map#manual_complete()
+inoremap <expr> <C-p>
+      \ pum#visible()
+      \ ? '<Cmd>call pum#map#insert_relative(-1)<CR>'
+      \ : goda_cmp#map#manual_complete()
 inoremap <C-y> <Cmd>call pum#map#confirm()<CR>
 inoremap <C-e> <Cmd>call pum#map#cancel()<CR>
+
+nnoremap : <cmd>call goda_cmp#enable_cmdline()<CR>:
+cnoremap <expr> <C-n>
+      \ pum#visible()
+      \ ? '<Cmd>call pum#map#insert_relative(+1)<CR>'
+      \ : goda_cmp#map#manual_complete()
+cnoremap <expr> <C-p>
+      \ pum#visible()
+      \ ? '<Cmd>call pum#map#insert_relative(-1)<CR>'
+      \ : goda_cmp#map#manual_complete()
+cnoremap <C-y> <Cmd>call pum#map#confirm()<CR>
+cnoremap <C-e> <Cmd>call pum#map#cancel()<CR>
+
 
 g:goda_skk#config_dir = config_dir .. '/goda/skk'
 map! <C-j> <Plug>(goda-skk-enable)
