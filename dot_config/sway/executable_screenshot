@@ -1,0 +1,32 @@
+#!/bin/sh
+set -eu
+
+case ${1:-region} in
+    region) geometry=$(slurp) || exit 0 ;;
+    full) geometry= ;;
+    *) exit 2 ;;
+esac
+
+image=$(mktemp "${TMPDIR:-/tmp}/sway-screenshot.XXXXXXXX.png")
+trap 'rm -f -- "$image"' EXIT
+trap 'exit 1' HUP INT TERM
+
+if [ -n "$geometry" ]; then
+    grim -g "$geometry" "$image"
+else
+    grim "$image"
+fi
+wl-copy --type image/png < "$image"
+
+choice=$(printf '%s\n' 'コピーのみ' 'ファイルにも保存' |
+    fuzzel --dmenu --index --select-index=0 --lines=2 \
+        --prompt='コピー済み：' --placeholder='ファイルにも保存しますか？') || exit 0
+[ "$choice" = 1 ] || exit 0
+
+pictures=${XDG_PICTURES_DIR:-}
+if [ -z "$pictures" ] && command -v xdg-user-dir >/dev/null 2>&1; then
+    pictures=$(xdg-user-dir PICTURES) || pictures=
+fi
+directory=${pictures:-"$HOME/Pictures"}/Screenshots
+mkdir -p -- "$directory"
+cp -- "$image" "$directory/Screenshot-$(date +%Y%m%d-%H%M%S-%N).png"

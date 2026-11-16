@@ -1,0 +1,14 @@
+#!/bin/sh
+set -eu
+
+XDG_DATA_DIRS=${XDG_DATA_DIRS:-/usr/local/share:/usr/share}
+for directory in /var/lib/flatpak/exports/share \
+    "${FLATPAK_USER_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/flatpak}/exports/share"; do
+    case ":$XDG_DATA_DIRS:" in
+        *":$directory:"*|*":$directory/:"*) ;;
+        *) XDG_DATA_DIRS=$directory:$XDG_DATA_DIRS ;;
+    esac
+done
+export XDG_DATA_DIRS
+
+exec fuzzel "$@"
