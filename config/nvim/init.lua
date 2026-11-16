@@ -16,7 +16,7 @@ vim.pack.add({
 
 require("mini.pick").setup()
 require("mini.pairs").setup()
-require('mini.extra').setup({})
+require('mini.extra').setup()
 require("mini.icons").setup()
 require("mini.completion").setup()
 
@@ -28,4 +28,5 @@ vim.keymap.set("n", "<leader>d", MiniExtra.pickers.diagnostic)
 vim.lsp.enable({
     "zls",
     "ts_ls",
+    "clojure_lsp"
 })
