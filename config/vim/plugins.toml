@@ -10,8 +10,17 @@ repo = 'Shougo/goda-fi.vim'
 hook_post_update = 'call goda_fi#build()'
 
 [[plugins]]
+repo = 'Shougo/goda-fi-ui-ff.vim'
+
+[[plugins]]
+repo = 'Shougo/goda-fi-ui-filer.vim'
+
+[[plugins]]
 repo = 'Shougo/goda-cmp.vim'
 hook_post_update = 'call goda_cmp#build()'
+
+[[plugins]]
+repo = 'Shougo/goda-cmp-ui-pum.vim'
 
 [[plugins]]
 repo = 'Shougo/pum.vim'
@@ -23,3 +32,6 @@ hook_post_update = 'call goda_skk#build()'
 [[plugins]]
 repo = 'Shougo/goda-term.vim'
 hook_post_update = 'call goda_term#build()'
+
+[[plugins]]
+repo = 'Shougo/goda-term-ui-shell.vim'

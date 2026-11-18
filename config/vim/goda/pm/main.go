@@ -3,9 +3,9 @@ package main
 import (
     "context"
 
-    "github.com/Shougo/goda-pm.vim/ext/installer"
-    "github.com/Shougo/goda-pm.vim/ext/protocol/git"
-    "github.com/Shougo/goda-pm.vim/ext/toml"
+    "github.com/Shougo/goda-pm-ext/ext/installer"
+    "github.com/Shougo/goda-pm-ext/ext/protocol/git"
+    "github.com/Shougo/goda-pm-ext/ext/toml"
     "github.com/Shougo/goda-pm.vim/pm"
 )
 

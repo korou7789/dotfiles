@@ -33,6 +33,8 @@ set incsearch
 set ignorecase
 set smartcase
 
+set number
+
 g:mapleader = ' '
 
 g:goda_fi#config_dir = config_dir .. '/goda/fi'

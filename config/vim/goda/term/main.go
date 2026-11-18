@@ -2,7 +2,7 @@ package main
 
 import (
     "github.com/Shougo/goda-term.vim/term"
-    "github.com/Shougo/goda-term.vim/ext/ui/shell"
+    "github.com/Shougo/goda-term-ui-shell.vim/ext/ui/shell"
 )
 
 func main() {
