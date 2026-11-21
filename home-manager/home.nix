@@ -35,5 +35,7 @@ in
     vim
     neovim
     mise
+    typst
+    opam
   ];
 }
