@@ -26,14 +26,13 @@ command! PackState   call goda_pm#make_state_sync()
 filetype indent plugin on
 syntax on
 
+set hidden
 set ttimeoutlen=50
 set shiftwidth=4
 set softtabstop=-1
 set incsearch
 set ignorecase
 set smartcase
-
-set number
 
 g:mapleader = ' '
 
